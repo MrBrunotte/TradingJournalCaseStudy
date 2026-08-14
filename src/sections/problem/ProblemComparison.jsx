@@ -1,7 +1,7 @@
 export default function ProblemComparison({ left, right }) {
   return (
     <div className="mt-10 grid gap-4 lg:grid-cols-2">
-      <article className="border border-neutral-900 bg-neutral-950 p-6 sm:p-7">
+      <article className="flex h-full flex-col border border-yellow-500/30 bg-neutral-950 p-6 sm:p-7">
         <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
           {left.label}
         </p>
@@ -10,17 +10,25 @@ export default function ProblemComparison({ left, right }) {
           {left.title}
         </h3>
 
-        <ul className="mt-5 space-y-3 text-sm leading-6 text-neutral-300 sm:text-base">
-          {left.items.map((item) => (
-            <li key={item} className="flex gap-3">
-              <span className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 bg-neutral-600" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
+        {left.description && (
+          <p className="mt-4 text-sm leading-6 text-neutral-300 sm:text-base sm:leading-7">
+            {left.description}
+          </p>
+        )}
+
+        <div className="mt-6 border-t border-neutral-800 pt-4">
+          <ul className="space-y-3 text-sm leading-6 text-neutral-300 sm:text-base">
+            {left.items.map((item) => (
+              <li key={item} className="flex gap-3">
+                <span className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 bg-yellow-500" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </article>
 
-      <article className="border border-neutral-800 bg-neutral-950 p-6 sm:p-7">
+      <article className="flex h-full flex-col border border-yellow-500/30 bg-neutral-950 p-6 sm:p-7">
         <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
           {right.label}
         </p>
@@ -29,14 +37,22 @@ export default function ProblemComparison({ left, right }) {
           {right.title}
         </h3>
 
-        <ul className="mt-5 space-y-3 text-sm leading-6 text-neutral-300 sm:text-base">
-          {right.items.map((item) => (
-            <li key={item} className="flex gap-3">
-              <span className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 bg-yellow-500" />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
+        {right.description && (
+          <p className="mt-4 text-sm leading-6 text-neutral-300 sm:text-base sm:leading-7">
+            {right.description}
+          </p>
+        )}
+
+        <div className="mt-6 border-t border-neutral-800 pt-4">
+          <ul className="space-y-3 text-sm leading-6 text-neutral-300 sm:text-base">
+            {right.items.map((item) => (
+              <li key={item} className="flex gap-3">
+                <span className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 bg-yellow-500" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </article>
     </div>
   );

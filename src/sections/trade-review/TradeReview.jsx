@@ -17,18 +17,21 @@ export default function TradeReview({ content }) {
       />
 
       <div className="mt-10 grid gap-8 lg:grid-cols-2">
-        <article>
-          <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
-            {content.quality.label}
-          </p>
+        {/* Quality & Excursion */}
+        <article className="flex flex-col">
+          <div className="flex flex-col border border-yellow-500/30 bg-neutral-950 p-6 lg:h-[320px]">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
+              {content.quality.label}
+            </p>
 
-          <h3 className="mt-3 text-xl font-black text-white sm:text-2xl">
-            {content.quality.title}
-          </h3>
+            <h3 className="mt-3 text-xl font-black text-white sm:text-2xl">
+              {content.quality.title}
+            </h3>
 
-          <p className="mt-4 text-sm leading-6 text-neutral-400 sm:text-base sm:leading-7">
-            {content.quality.description}
-          </p>
+            <p className="mt-4 text-sm leading-6 text-neutral-300 sm:text-base sm:leading-7">
+              {content.quality.description}
+            </p>
+          </div>
 
           <div className="mt-6">
             <ScreenshotViewer
@@ -39,18 +42,21 @@ export default function TradeReview({ content }) {
           </div>
         </article>
 
-        <article>
-          <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
-            {content.behavioral.label}
-          </p>
+        {/* Behavioral Review */}
+        <article className="flex flex-col">
+          <div className="flex flex-col border border-yellow-500/30 bg-neutral-950 p-6 lg:h-[320px]">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
+              {content.behavioral.label}
+            </p>
 
-          <h3 className="mt-3 text-xl font-black text-white sm:text-2xl">
-            {content.behavioral.title}
-          </h3>
+            <h3 className="mt-3 text-xl font-black text-white sm:text-2xl">
+              {content.behavioral.title}
+            </h3>
 
-          <p className="mt-4 text-sm leading-6 text-neutral-400 sm:text-base sm:leading-7">
-            {content.behavioral.description}
-          </p>
+            <p className="mt-4 text-sm leading-6 text-neutral-300 sm:text-base sm:leading-7">
+              {content.behavioral.description}
+            </p>
+          </div>
 
           <div className="mt-6">
             <ScreenshotViewer

@@ -26,7 +26,7 @@ export default function TechnicalChallenges({ content }) {
           {content.closing.title}
         </p>
 
-        <p className="mt-4 max-w-4xl text-sm leading-6 text-neutral-400 sm:text-base sm:leading-7">
+        <p className="mt-4 max-w-4xl text-sm leading-6 text-neutral-300 sm:text-base sm:leading-7">
           {content.closing.description}
         </p>
       </div>

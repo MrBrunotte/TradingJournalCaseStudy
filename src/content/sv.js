@@ -11,10 +11,12 @@ const sv = {
   hero: {
     label: "Projektöversikt",
     title: "MrBrunotte's Trading Journal",
+
     description:
-      "En desktopbaserad tradingjournal som omvandlar rå handelsdata till strukturerade reviews, beteendeinsikter och återanvändbar kunskap.",
+      "En local-first desktopbaserad tradingjournal som omvandlar importerade executions till strukturerad review-data, analys på beslutsnivå och återanvändbar beteendehistorik. Den kopplar samman trade-import, account-level executions, Trading Decisions, reviews, session reflections och Coach evidence i ett sammanhängande workflow.",
+
     supportingLine:
-      "Från importerade executions till granskade beslut, beteendemönster och framtida tradingfokus.",
+      "Målet är inte bara att registrera vad som hände, utan att bevara varför det hände, vad jag lärde mig av det och vilka mönster som bör påverka framtida tradingbeslut.",
   },
 
   problem: {
@@ -27,6 +29,8 @@ const sv = {
       left: {
         label: "Traditionell journal",
         title: "Registrerar vad som hände",
+        description:
+          "Traditionella journaler är bra på att bevara resultat och prestationsdata, men de tappar ofta resonemanget, kontexten och lärdomarna bakom resultaten.",
         items: [
           "Vinst och förlust",
           "Win rate",
@@ -39,6 +43,8 @@ const sv = {
       right: {
         label: "Det jag ville bevara",
         title: "Varför det hände och vad jag lärde mig",
+        description:
+          "Jag ville att journalen skulle bevara beslutet bakom resultatet, hur väl det genomfördes, vad jag observerade och vad som bör påverka framtida sessioner.",
         items: [
           "Resonemang",
           "Execution quality",
@@ -63,29 +69,51 @@ const sv = {
 
     importPipeline: {
       label: "Importflöde",
+      title: "Olika externa format blir en gemensam intern trade-modell",
+      description:
+        "Tradingexporter kan använda olika headers, fältnamn och format. Importflödet håller de källspecifika skillnaderna vid applikationens systemgräns så att efterföljande features kan arbeta med en konsekvent representation av en trade.",
+
+      stepLabel: "Steg",
 
       sources: [
         {
+          label: "Extern källa",
           name: "DeepCharts",
-          type: "CSV-källa",
+          description:
+            "CSV-exporter från DeepCharts går genom en källspecifik importer.",
         },
         {
+          label: "Extern källa",
           name: "Rithmic",
-          type: "CSV-källa",
+          description:
+            "Rithmic-exporter använder sitt eget format och hanteras av en separat adapter.",
         },
       ],
 
       steps: [
-        "Identifiering av källa",
-        "Adapter",
-        "Normalisering",
-        "Gemensam trade-modell",
+        {
+          title: "Identifiering av källa",
+          description:
+            "Journalen identifierar vilket externt format den importerade CSV-filen tillhör.",
+        },
+        {
+          title: "Adapter",
+          description:
+            "En källspecifik adapter läser de fält och konventioner som används i exporten.",
+        },
+        {
+          title: "Normalisering",
+          description:
+            "Värden, fältnamn och format omvandlas till en gemensam konsekvent struktur.",
+        },
+        {
+          title: "Gemensam trade-modell",
+          description:
+            "Det normaliserade resultatet blir den gemensamma trade-representation som används av storage, reviews och analytics.",
+        },
       ],
-
-      stepLabel: "Steg",
-
-      description:
-        "Källspecifika skillnader hanteras i importlagret så att resten av applikationen kan arbeta med en konsekvent intern trade-modell.",
+      closing:
+        "Källspecifik logik stannar i importlagret, så att resten av applikationen kan arbeta med en konsekvent intern trade-modell oavsett den ursprungliga datakällan.",
     },
 
     decisionGrouping: {
@@ -110,30 +138,62 @@ const sv = {
 
       summary:
         "Samma underliggande tradingdata, analyserad på två olika nivåer.",
+
+      summaryDescription:
+        "Journalen bevarar varje account execution för finansiell korrekthet samtidigt som relaterade executions kan grupperas till ett enda Trading Decision när de representerar samma underliggande beslut. På så sätt kan account performance och beteendeanalys använda samma importerade data utan att kopierade trades räknas felaktigt.",
     },
 
     copiedTradeMatching: {
       label: "Matchning av kopierade trades",
-      title: "Automatiskt när matchningen är säker, manuellt när den är osäker",
+
+      title: "Så grupperas kopierade executions till Trading Decisions",
+
       description:
-        "Kopierade executions kan skilja sig något i tid, entry eller exit på grund av fills. Tydliga matches kan grupperas automatiskt medan osäkra fall kan granskas manuellt.",
+        "När samma trade kopieras till flera konton kan fills skilja sig något i tid, entry eller exit. Journalen försöker först matcha executions automatiskt. Om matchningen är osäker kan den bekräftas manuellt.",
 
-      likelyMatch: {
-        label: "Trolig matchning",
-        description:
-          "Tradens egenskaper indikerar att executions tillhör samma underliggande beslut.",
+      accountTrades: {
+        label: "Account Trades",
+        title: "Varje execution finns kvar",
+        executionLabel: "execution",
       },
 
-      manualReview: {
-        label: "Manuell granskning",
+      automatic: {
+        label: "Automatisk matchning",
+        title: "Tydliga matchningar grupperas automatiskt",
         description:
-          "Osäkra fall visas för manuell kontroll så att de kan bekräftas som samma beslut eller behållas separat.",
+          "Executions med tillräckligt liknande tid, entry och exit kan kopplas ihop utan manuell kontroll.",
       },
 
-      originalData: {
-        label: "Originaldata bevaras",
+      manual: {
+        label: "Manuell bekräftelse",
+        title: "Osäkra matchningar granskas manuellt",
         description:
-          "Grupperingsbeslutet sparas utan att den ursprungliga importerade tradingdatan förändras.",
+          "Om en matchning inte är tillräckligt säker för automatisk gruppering visas den så att jag kan bekräfta om executionerna hör ihop.",
+      },
+
+      results: {
+        label: "Resultat av matchningen",
+        title: "Executionerna grupperas eller hålls separata",
+
+        single: {
+          label: "Grupperat resultat",
+          title: "Ett Trading Decision",
+          description:
+            "Executionerna tillhör samma underliggande tradingbeslut och grupperas tillsammans för review och beteendeanalys.",
+        },
+
+        multiple: {
+          label: "Separat resultat",
+          title: "Flera Trading Decisions",
+          description:
+            "Executionerna representerar separata tradingbeslut och förblir separata för review och beteendeanalys.",
+        },
+      },
+
+      preserved: {
+        label: "Originala Account Trades finns kvar",
+        description:
+          "Grupperingen tar aldrig bort eller ändrar importerade executions. Varje account trade finns kvar och används fortsatt för P&L, fills och statistik på kontonivå.",
       },
     },
   },
@@ -159,18 +219,39 @@ const sv = {
     },
 
     flow: {
-      label: "Review-datan stannar inte i den enskilda reviewn",
-      description:
-        "Varje granskat beslut tillför strukturerad information om execution, planföljsamhet, regeluppföljning, misstag och mina egna observationer. När historiken växer kan den visa återkommande mönster och ge Coach bättre kontext för att avgöra vad som behöver uppmärksammas framåt.",
+      sectionLabel: "Reviewflöde",
+      label: "Review-data stannar inte i den enskilda reviewn",
 
+      description:
+        "Varje reviewad trading decision lägger till strukturerad information om execution, planföljsamhet, regler, misstag och mina egna observationer. När fler beslut reviewas byggs en historik över hur jag faktiskt tradar. Återkommande misstag, styrkor och mönster i mina egna anteckningar blir lättare att identifiera, vilket ger Coach bättre underlag för att avgöra vad som förtjänar fokus härnäst.",
+
+      tradeReviewLabel: "Reviewat beslut",
       tradeReview: "Trade Review",
+
+      structuredReviewData: "Strukturerad review-data",
+      structuredReviewDescription:
+        "Varje review gör traden till strukturerad information som kan jämföras med senare beslut.",
+
       execution: "Execution",
       plan: "Plan",
       rules: "Regler",
       mistakes: "Misstag",
       notes: "Anteckningar",
-      historicalEvidence: "Historisk evidence",
-      coach: "Coach",
+
+      reviewedHistoryLabel: "Reviewad historik",
+      reviewedHistory: "Beslut samlas över tid",
+      reviewedHistoryDescription:
+        "Enskilda reviews blir tillsammans en växande historik av reviewade trading decisions.",
+
+      historicalEvidenceLabel: "Historisk evidence",
+      historicalEvidence: "Mönster blir synliga",
+      historicalEvidenceDescription:
+        "Återkommande misstag, styrkor, execution-beteende och observationer kan identifieras i historiken.",
+
+      coachLabel: "Coach",
+      coach: "Vad förtjänar fokus just nu?",
+      coachDescription:
+        "Coach använder den samlade evidensen för att lyfta relevanta mönster, fokusområden och tidigare observationer.",
     },
   },
 
@@ -192,6 +273,59 @@ const sv = {
       title: "Vad hände över de beslut jag faktiskt tog?",
       description:
         "Beteendeanalysen använder Trading Decisions i stället för att blint räkna varje kopierad execution. Ett misstag som gjorts en gång ska inte bli fyra misstag bara för att traden kopierades till fyra konton. Genom att gruppera dessa executions kan grades, misstag, planföljsamhet och review-statistik representera de faktiska beslut jag tog.",
+    },
+
+    metrics: {
+      groups: [
+        {
+          label: "Performance",
+          title: "Vad blev det finansiella resultatet?",
+          description:
+            "Mäter lönsamhet, stabilitet och hur resultatet utvecklas över tid.",
+          items: [
+            "P&L",
+            "Profit Factor",
+            "Expectancy",
+            "Win Rate",
+            "Equity Curve",
+          ],
+        },
+        {
+          label: "Execution",
+          title: "Hur väl genomfördes traderna?",
+          description:
+            "Utvärderar trade-kvalitet, excursion och hur effektivt positionerna hanterades.",
+          items: ["Grade", "MFE / MAE / ETD", "Exit", "Break-even"],
+        },
+        {
+          label: "Beteende",
+          title: "Vilka beteenden påverkade resultatet?",
+          description:
+            "Kopplar resultaten till återkommande misstag, planföljsamhet och regeldisciplin.",
+          items: ["Misstag", "Plan", "Regler", "Kostnad för regelbrott"],
+        },
+        {
+          label: "Kontext",
+          title: "Var och när uppstod resultaten?",
+          description:
+            "Bryter ner resultaten efter tradingkontext för att visa var prestationen förändras.",
+          items: ["Strategi", "Tid", "Dag", "Konto"],
+        },
+      ],
+    },
+
+    perspectives: {
+      label: "Två analytiska perspektiv",
+      title: "Samma tradinghistorik, analyserad på två olika nivåer",
+      description:
+        "Account Analytics bevarar varje execution för finansiell statistik och analys på kontonivå, medan Decision Analytics grupperar kopierade executions så att beteendeanalysen speglar de faktiska tradingbeslut som togs.",
+
+      accountLabel: "Account Analytics",
+      decisionLabel: "Decision Analytics",
+
+      accountTags: ["P&L", "Fills", "Tradingkostnader", "Kontoprestation"],
+
+      decisionTags: ["Grades", "Misstag", "Plan", "Regler", "Review-statistik"],
     },
 
     secondaryLabel: "Bredare Analytics Overview",
@@ -223,8 +357,45 @@ const sv = {
 
     flow: {
       label: "Från beslut till återanvändbar session evidence",
+
       description:
-        "Session Reviews är en av Coach viktigaste evidenskällor eftersom de komprimerar många granskade beslut till en tydligare bild av vad som hände, vad som upprepades och vad som förtjänar uppmärksamhet framåt. Det gör sessionreflektionen mer användbar än en samling isolerade anteckningar.",
+        "Session Reviews är en av Coach viktigaste evidenskällor eftersom de komprimerar många reviewade beslut till en tydligare bild av vad som hände, vad som upprepades och vad som förtjänar uppmärksamhet härnäst. Flödet kombinerar strukturerad review-data med min egen slutliga tolkning innan resultatet blir återanvändbar evidence på sessionsnivå.",
+
+      reviewedDecisions: {
+        label: "Reviewade beslut",
+        title: "Sessionen börjar med de beslut som faktiskt har reviewats",
+        description:
+          "Enskilda Trading Decisions bidrar med strukturerad evidence om execution quality, planföljsamhet, misstag och marknadskontext.",
+      },
+
+      suggestedDraft: {
+        label: "Föreslaget session draft",
+        title: "Reviewade beslut skapar en strukturerad utgångspunkt",
+        description:
+          "Journalen kan sammanfatta de reviewade besluten till ett föreslaget draft så att jag inte behöver rekonstruera hela sessionen manuellt.",
+      },
+
+      reflection: {
+        label: "Min reflektion",
+        title:
+          "Jag lägger till den kontext som den strukturerade datan inte kan känna till",
+        description:
+          "Jag lägger till min egen session grade, vad som fungerade bra, upprepade misstag och det fokus jag vill ta med mig till nästa session.",
+      },
+
+      sessionEvidence: {
+        label: "Session Review Evidence",
+        title: "Sessionen blir en återanvändbar del av historiken",
+        description:
+          "Strukturerad data från besluten och min slutliga reflektion kombineras till en övergripande tolkning av sessionen som kan fortsätta vara användbar senare.",
+      },
+
+      coach: {
+        label: "Coach",
+        title: "Relevant session evidence kan påverka framtida fokus",
+        description:
+          "Coach kan återanvända den färdiga Session Reviewn när den avgör vilka mönster, observationer och fokusområden som förtjänar uppmärksamhet i kommande sessioner.",
+      },
     },
   },
 
@@ -239,6 +410,50 @@ const sv = {
     highlight:
       "Journalen minns vad jag observerade, så att jag kan fortsätta lära mig av det.",
 
+    evidence: {
+      groups: [
+        {
+          label: "Evidence",
+          title: "Vad Coach lär sig från",
+          description:
+            "Reviewad information ger det faktiska underlaget för beteendeanalysen.",
+          items: [
+            "Reviewade beslut",
+            "Session Reflections",
+            "Misstag",
+            "Execution Quality",
+            "Review Notes",
+          ],
+        },
+        {
+          label: "Mönster",
+          title: "Vad som blir synligt över tid",
+          description:
+            "Återkommande evidence kan visa beteenden som är svåra att upptäcka från enskilda trades.",
+          items: [
+            "Återkommande beteenden",
+            "Upprepade misstag",
+            "Styrkor",
+            "Nya teman",
+            "Beteendemässig konsekvens",
+          ],
+        },
+        {
+          label: "Fokus",
+          title: "Vad som förs tillbaka till det aktuella arbetsflödet",
+          description:
+            "Relevanta mönster omvandlas till praktiska fokusområden som kan påverka framtida sessioner.",
+          items: [
+            "Today's Focus",
+            "Improvement Focus",
+            "Execution Cues",
+            "Träningsprioriteringar",
+            "Utveckling över tid",
+          ],
+        },
+      ],
+    },
+
     technicalNote: {
       label: "Rule- and data-driven",
       description:
@@ -249,6 +464,33 @@ const sv = {
       label: "Från review-historik till framtida fokus",
       description:
         "Trade Reviews ger evidence på beslutsnivå medan Session Reviews tillför en mer sammanfattad reflektion och kontext. De källorna bevarar mina egna observationer tillsammans med strukturerad information om execution, misstag, planföljsamhet och återkommande beteenden. Över tid kan Coach använda historiken för att lyfta fram mönster och prioritera de teman som förtjänar uppmärksamhet nu.",
+
+      steps: [
+        {
+          label: "Review-källa",
+          title: "Trade Reviews",
+        },
+        {
+          label: "Review-källa",
+          title: "Session Reviews",
+        },
+        {
+          label: "Personlig kontext",
+          title: "Mina observationer",
+        },
+        {
+          label: "Samlad historik",
+          title: "Samlad Evidence",
+        },
+        {
+          label: "Mönsteridentifiering",
+          title: "Återkommande mönster",
+        },
+        {
+          label: "Aktuellt resultat",
+          title: "Prioriterat fokus",
+        },
+      ],
     },
   },
 
@@ -264,28 +506,28 @@ const sv = {
       description:
         "Entry Playbook är ett strukturerat visuellt bibliotek över de entry-modeller jag vill handla. Varje modell kan dokumentera förväntad marknadskontext, entry-kriterier, direction, bias, grade, category, checklist, vanliga execution errors och chart-exempel. Syftet är att göra villkoren för en giltig entry tydliga före execution i stället för att rekonstruera logiken i efterhand utifrån resultatet.",
 
-features: [
-  {
-    title: "Entry-kriterier",
-    description:
-      "Definierar vilka villkor som bör vara uppfyllda innan traden betraktas som giltig.",
-  },
-  {
-    title: "Grade & direction",
-    description:
-      "Klassificerar setupens kvalitet och om modellen gäller long, short eller i båda riktningarna.",
-  },
-  {
-    title: "Strukturerad checklist",
-    description:
-      "Gör setupen till återkommande pre-trade-kontroller som kan gås igenom före execution.",
-  },
-  {
-    title: "Vanliga execution errors",
-    description:
-      "Lyfter fram kända misstag som kan försvaga en annars giltig setup eller execution.",
-  },
-],
+      features: [
+        {
+          title: "Entry-kriterier",
+          description:
+            "Definierar vilka villkor som bör vara uppfyllda innan traden betraktas som giltig.",
+        },
+        {
+          title: "Grade & direction",
+          description:
+            "Klassificerar setupens kvalitet och om modellen gäller long, short eller i båda riktningarna.",
+        },
+        {
+          title: "Strukturerad checklist",
+          description:
+            "Gör setupen till återkommande pre-trade-kontroller som kan gås igenom före execution.",
+        },
+        {
+          title: "Vanliga execution errors",
+          description:
+            "Lyfter fram kända misstag som kan försvaga en annars giltig setup eller execution.",
+        },
+      ],
 
       primaryScreenshotTitle: "Entry Playbook Overview",
 
@@ -326,9 +568,36 @@ features: [
     },
 
     flow: {
-      label: "Förberedelsen blir en del av review-loopen",
+      label: "Förberedelsen blir en del av lärandeloopen",
       description:
         "Förberedelsen är kopplad till samma lärandeprocess som execution och review. Market Bias dokumenterar den förväntade miljön, Entry Playbook definierar hur en giltig setup ska se ut och den resulterande Trading Decision kan senare granskas mot dessa förväntningar. Session Reviews och Coach kan sedan återanvända historiken i stället för att behandla förberedelsen som fristående anteckningar.",
+
+      steps: [
+        {
+          stage: "Förberedelse",
+          title: "Market Bias",
+        },
+        {
+          stage: "Förberedelse",
+          title: "Entry Playbook",
+        },
+        {
+          stage: "Execution",
+          title: "Trading Decision",
+        },
+        {
+          stage: "Review",
+          title: "Trade Review",
+        },
+        {
+          stage: "Review",
+          title: "Session Review",
+        },
+        {
+          stage: "Lärande",
+          title: "Coach",
+        },
+      ],
     },
   },
 
@@ -344,7 +613,7 @@ features: [
         label: "Multi-account trade grouping",
         title: "Ett beslut, flera executions",
         description:
-          "Copy trading innebär att ett och samma tradingbeslut kan skapa flera separata account executions. Systemet måste bevara varje individuell fill för finansiell korrekthet samtidigt som samma beslut inte får räknas flera gånger i beteendestatistiken.",
+          "Journalen stödjer copy trading över flera konton, vilket innebär att ett enda tradingbeslut kan skapa flera separata executions. Utmaningen är att bevara varje individuell fill för korrekt finansiell analys samtidigt som systemet måste förstå att dessa executions kan representera endast ett underliggande beslut i review och beteendestatistik.",
         details: [
           "Account-level P&L och fills måste förbli intakta.",
           "Grades, misstag och reviews ska representera det underliggande beslutet en gång.",
@@ -359,7 +628,7 @@ features: [
         label: "Copied trade matching",
         title: "Automation med manuell hantering av undantag",
         description:
-          "Executions som tillhör samma kopierade trade är inte alltid identiska. Små skillnader i entry time, entry price eller exit price kan uppstå på grund av fills, latency eller stop-beteende. Därför räcker inte enkel exakt matchning.",
+          "När flera account executions kan tillhöra samma underliggande trade behöver journalen kunna avgöra vilka som faktiskt hör ihop. Exakt matchning räcker inte alltid eftersom kopierade executions kan skilja sig något i tid, entry price eller exit price. Matchningsprocessen kombinerar därför automatisk gruppering med manuell bekräftelse när datan är osäker.",
         details: [
           "Tydliga matches kan grupperas automatiskt.",
           "Osäkra fall visas för manuell verifiering.",
@@ -374,7 +643,7 @@ features: [
         label: "CSV normalization",
         title: "Olika källor, en gemensam intern trade-modell",
         description:
-          "Tradingexporter använder inte alltid samma headers, format eller konventioner. Importlagret måste därför identifiera källan och översätta den källspecifika datan till en konsekvent intern representation innan resten av applikationen kan använda den säkert.",
+          "Journalen importerar tradingdata från flera externa källor, och exporter använder inte identiska headers, format eller konventioner. I stället för att låta resten av applikationen känna till alla källspecifika skillnader identifierar importlagret datakällan och omvandlar informationen till en gemensam intern trade-modell innan den används av analytics, reviews eller andra features.",
         details: [
           "Source detection stannar i importlagret.",
           "Källspecifika adapters hanterar externa skillnader.",
@@ -389,7 +658,7 @@ features: [
         label: "Persistence evolution",
         title: "Från enklare lagring till SQLite och repositories",
         description:
-          "Kraven på persistens förändrades när journalen blev större och mer sammankopplad. Funktioner som fungerade med enklare lokal lagring behövde så småningom en tydligare separation mellan applikationslogik och hur datan faktiskt sparas.",
+          "När journalen växte från enklare trade tracking till en större sammankopplad applikation blev fler features beroende av persistent data. Storage blev därför ett arkitekturproblem snarare än bara ett ställe att spara värden. Datalagret separerades stegvis från feature-logiken så att applikationen kunde utvecklas mot SQLite utan att varje vy behövde känna till hur den underliggande lagringen fungerar.",
         details: [
           "Repositories separerar features från persistensdetaljer.",
           "Storage providers gör datalagret enklare att utveckla vidare.",
@@ -406,7 +675,7 @@ features: [
         title:
           "Sparade anteckningar hjälper inte om de försvinner i historiken",
         description:
-          "Trade Reviews och Session Reviews innehåller mer än vanliga anteckningar. De kombinerar strukturerade fält med misstag, execution quality, planföljsamhet, sessionsslutsatser och personliga observationer. Utmaningen är att bevara tillräcklig kontext för att historiken fortfarande ska vara användbar senare.",
+          "Trade Reviews och Session Reviews fångar information som fortfarande kan vara värdefull långt efter att den ursprungliga traden är avslutad. Utmaningen är därför inte bara att spara reviewn, utan att bevara tillräckligt med struktur och kontext för att tidigare misstag, observationer och slutsatser ska kunna bli användbar historisk evidence som andra delar av journalen kan återanvända senare.",
         details: [
           "Decision-level reviews skapar strukturerad historisk evidence.",
           "Session Reviews tillför övergripande kontext och reflektion.",
@@ -421,7 +690,7 @@ features: [
         label: "Refactoring for maintainability",
         title: "Minska ansvar när komplexiteten växer",
         description:
-          "När funktionerna utvecklades samlade vissa större moduler UI-rendering, state management, beräkningar, datatransformation och feature-logik i samma filer. Det gjorde förändringar svårare att förstå och ökade risken för oväntade sidoeffekter.",
+          "Flera features började som relativt små moduler men blev mer komplexa när nya workflows, beräkningar och databeroenden lades till. Vissa filer började till slut innehålla UI-rendering, state management, beräkningar och datatransformation samtidigt. Refactoring har därför blivit en del av utvecklingsprocessen så att applikationen kan fortsätta utvecklas utan att varje förändring blir svårare att förstå eller mer riskfylld att testa.",
         details: [
           "Stora komponenter delas successivt upp i mer fokuserade komponenter.",
           "Återanvändbara beräkningar och transformationer flyttas till services och utilities.",
@@ -446,39 +715,95 @@ features: [
     description:
       "Arkitekturen har utvecklats stegvis kring praktisk separation av ansvar snarare än kring ett formellt arkitekturmönster. React hanterar användargränssnittet, Tauri ger desktop-runtime och SQLite stödjer lokal persistens. Importlogik, repositories, storage providers, analytics utilities, feature-moduler och Coach-logik är separerade så att varje del av systemet kan utvecklas utan att varje feature behöver känna till hur alla andra lager fungerar.",
 
+    layers: [
+      {
+        number: "01",
+        title: "Trading Data",
+        description:
+          "Råa executions kommer in i systemet från externa tradingplattformar och CSV-exporter. Lagret representerar den ursprungliga tradingdatan innan källspecifika skillnader har normaliserats.",
+      },
+      {
+        number: "02",
+        title: "Import & Normalisering",
+        description:
+          "Source detection och källspecifika adapters omvandlar olika externa exporter till en gemensam intern trade-modell som resten av applikationen kan använda på ett konsekvent sätt.",
+      },
+      {
+        number: "03",
+        title: "Repositories & Local Storage",
+        description:
+          "Repositories och storage providers separerar applikationens features från persistenslagret, medan SQLite lagrar journalens data lokalt på datorn.",
+      },
+      {
+        number: "04",
+        title: "Account Trades + Trading Decisions",
+        description:
+          "Samma importerade data representeras på två analytiska nivåer: individuella Account Trades för finansiell korrekthet och grupperade Trading Decisions för beteendeanalys.",
+      },
+      {
+        number: "05",
+        title: "Features & Analytics",
+        description:
+          "Dashboard, trades, analytics, playbooks och preparation-workflows använder den gemensamma datamodellen utan att behöva känna till hur import eller persistens är implementerad.",
+      },
+      {
+        number: "06",
+        title: "Trade Reviews",
+        description:
+          "Varje Trading Decision kan reviewas med execution quality, planföljsamhet, misstag, anteckningar och chart evidence, vilket skapar strukturerad historik på beslutsnivå.",
+      },
+      {
+        number: "07",
+        title: "Session Reviews",
+        description:
+          "Reviewade beslut kombineras till en mer övergripande reflektion över sessionen med återkommande styrkor, upprepade misstag, kontext och fokus inför nästa session.",
+      },
+      {
+        number: "08",
+        title: "Samlad Evidence",
+        description:
+          "Reviewade beslut, session reflections och observationer bygger tillsammans en återanvändbar historik där återkommande beteenden, styrkor och svagheter kan bli synliga över tid.",
+      },
+      {
+        number: "09",
+        title: "Trading Coach",
+        description:
+          "Coach använder reviewad historik och återkommande mönster för att prioritera vilka observationer, beteenden och förbättringsområden som förtjänar fokus i det aktuella arbetsflödet.",
+      },
+    ],
+
     responsibilities: [
       {
         label: "Import",
         description:
-          "Source detection, källspecifika adapters och normalisering håller externa dataskillnader vid systemgränsen.",
+          "Ansvarar för source detection, källspecifika adapters och normalisering så att externa dataskillnader stannar vid systemgränsen.",
       },
       {
         label: "Storage",
         description:
-          "Repositories och storage providers separerar feature-logik från den underliggande persistensimplementationen.",
+          "Ansvarar för repositories, storage providers och lokal persistens så att features inte behöver känna till hur datan fysiskt lagras.",
       },
       {
         label: "Analytics",
         description:
-          "Selectors, utilities och analytics-logik omvandlar lagrad data till decision-level och account-level metrics.",
+          "Omvandlar lagrade Account Trades och Trading Decisions till finansiella, execution-baserade och beteendemässiga metrics.",
       },
       {
         label: "Features",
         description:
-          "Användarnära moduler kombinerar data, workflows och interaction utan att själva äga hela persistens- eller importprocessen.",
+          "Bygger användarens workflows runt den gemensamma datan utan att ta över ansvar för import eller persistens.",
       },
       {
         label: "Coach",
         description:
-          "Beteendelogiken använder reviewed evidence, patterns och session context för att skapa prioriterat framtida fokus.",
+          "Använder reviewad evidence, återkommande mönster och session context för att skapa prioriterat framtida fokus.",
       },
     ],
 
     closing: {
-      title:
-        "Arkitekturen finns för att stödja förändring, inte för att få projektet att se mer komplext ut.",
+      title: "Strukturen gör applikationen enklare att ändra och felsöka",
       description:
-        "När journalen växte blev tydligare gränser värdefulla eftersom imports, storage, analytics, reviews och Coach-beteende i allt högre grad påverkade varandra. Den nuvarande strukturen är tänkt att göra dessa beroenden enklare att förstå, felsöka och utveckla samtidigt som applikationen förblir local-first och praktisk för ett single-user desktop workflow.",
+        "När Trading Journal växte började fler delar av systemet påverka varandra. En förändring i importlogiken kunde påverka analytics, reviews eller Coach, och ändringar i lagringen kunde få konsekvenser i flera features samtidigt. Därför har applikationen stegvis delats upp i tydligare ansvarsområden för import, storage, analytics, features och Coach-logik. Det gör det enklare att förstå var ett problem uppstår, följa hur data rör sig genom systemet och ändra en del utan att behöva bygga om allt runt omkring.",
     },
   },
 
@@ -533,7 +858,7 @@ features: [
     },
 
     closing:
-      "För mig är den viktigaste delen av projektet inte vem som har skrivit enskilda kodrader. Det viktiga är att jag har tagit ett verkligt problem, definierat systemet som behövs för att lösa det och kontinuerligt utvecklat systemet till en fungerande applikation med sammankopplade workflows, riktig data och allt mer komplexa krav.",
+      "Det viktigaste för mig är inte vem som skrev varje enskild kodrad. Jag identifierade problemet, definierade vad systemet behövde göra, tog besluten kring produkt och workflows, testade resultatet i verklig användning och fortsatte förfina lösningen när implementationen inte motsvarade det avsedda beteendet. Applikationen speglar mina beslut, prioriteringar och min förståelse av problemet, med ChatGPT som coding implementation layer.",
   },
 
   currentStatus: {
@@ -546,18 +871,25 @@ features: [
       {
         label: "Status",
         value: "Aktiv utveckling",
+        description:
+          "Förfinas kontinuerligt genom verklig användning och nya workflow-krav.",
       },
       {
         label: "Plattform",
         value: "Desktop",
+        description: "En lokal desktopapplikation byggd med React och Tauri.",
       },
       {
         label: "Datamodell",
         value: "Local-first",
+        description:
+          "Tradingdata och applikationsdata lagras lokalt på datorn.",
       },
       {
         label: "Källkod",
         value: "Privat repository",
+        description:
+          "Produktionskoden hålls medvetet privat medan case studyn är publik.",
       },
     ],
 
@@ -566,6 +898,13 @@ features: [
       title: "Applikationen utvecklas utifrån faktiska workflow-problem",
       description:
         "Features testas regelbundet mot min egen importerade tradingdata och verkliga review-workflows. Det gör att problem upptäcks som är svåra att förutse i en isolerad demo, exempelvis skillnader mellan kopierade trades, kontoskillnader, ofullständig review-data, lagringskrav och interaktioner mellan analytics och beteendelogik. Problem som upptäcks genom användning blir ofta nästa utvecklingskrav.",
+
+      points: [
+        "Valideras mot importerad tradingdata",
+        "Använder verkliga review-workflows i stället för isolerade demofall",
+        "Synliggör edge cases genom faktisk daglig användning",
+        "Problem som upptäcks i användning blir ofta nästa utvecklingskrav",
+      ],
     },
 
     evolution: {
@@ -573,6 +912,13 @@ features: [
       title: "Systemet fortsätter förändras när kraven blir tydligare",
       description:
         "Journalen har utvecklats från enklare trade tracking till ett mer sammanhängande system för import, normalisering, multi-account-hantering, strukturerad review, analytics, förberedelse, session reflection och beteendeanalys. Den nuvarande utvecklingen fokuserar allt mer inte bara på nya features utan också på förbättrade workflows, minskad onödig komplexitet och refactoring av områden som har vuxit bortom sitt ursprungliga ansvar.",
+
+      points: [
+        "Omfattningen har vuxit när de sammankopplade workflowsen blivit tydligare",
+        "Utvecklingen omfattar nu både nya features och förbättring av befintliga",
+        "Komplexitet minskas genom iteration och refactoring",
+        "Systemet fortsätter utvecklas när kraven blir mer precisa",
+      ],
     },
 
     closing:
@@ -600,13 +946,14 @@ features: [
     },
 
     closing:
-      "Jag kan diskutera arkitektur, workflows, utvecklingsprocess, tekniska utmaningar och enskilda implementationsbeslut mer detaljerat i en intervju.",
+      "Jag kan gå igenom arkitekturen, dataflödet, viktiga workflows, tekniska utmaningar och de implementationsbeslut som testades och förfinades under utvecklingen.",
   },
 
   footer: {
     description:
-      "En publik case study av en privat, aktivt utvecklad desktopbaserad tradingjournal.",
-    project: "MrBrunotte's Trading Journal",
+      "En publik case study av en privat, aktivt utvecklad desktop trading journal.",
+    owner: "Stefan Brunotte",
+    project: "Ägare av MrBrunotte's Trading Journal",
     status: "React · Tauri · SQLite · Aktiv utveckling",
   },
 };

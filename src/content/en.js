@@ -11,10 +11,12 @@ const en = {
   hero: {
     label: "Project Overview",
     title: "MrBrunotte's Trading Journal",
+
     description:
-      "A desktop trading journal that turns raw trading data into structured reviews, behavioral insights and reusable knowledge.",
+      "A local-first desktop trading journal built to turn imported executions into structured review data, decision-level analytics and reusable behavioral history. It connects trade imports, account-level executions, Trading Decisions, reviews, session reflections and Coach evidence into one continuous workflow.",
+
     supportingLine:
-      "From imported executions to reviewed decisions, behavioral patterns and future trading focus.",
+      "The goal is not only to record what happened, but to preserve why it happened, what I learned from it and which patterns should influence future trading decisions.",
   },
 
   problem: {
@@ -27,6 +29,8 @@ const en = {
       left: {
         label: "Traditional journal",
         title: "Records what happened",
+        description:
+          "Traditional journals are good at preserving results and performance data, but they often lose the reasoning, context and lessons behind those results.",
         items: [
           "Profit and loss",
           "Win rate",
@@ -39,6 +43,8 @@ const en = {
       right: {
         label: "What I wanted to preserve",
         title: "Why it happened and what I learned",
+        description:
+          "I wanted the journal to preserve the decision behind the result, how well it was executed, what I observed and what should influence future sessions.",
         items: [
           "Reasoning",
           "Execution quality",
@@ -63,29 +69,52 @@ const en = {
 
     importPipeline: {
       label: "Import Pipeline",
+      title: "Different external formats become one internal trade model",
+      description:
+        "Trading exports can use different headers, field names and formatting. The import pipeline keeps those source-specific differences at the boundary of the application so downstream features can work with one consistent representation of a trade.",
+
+      stepLabel: "Step",
 
       sources: [
         {
+          label: "External Source",
           name: "DeepCharts",
-          type: "CSV source",
+          description:
+            "CSV exports from DeepCharts enter through a source-specific importer.",
         },
         {
+          label: "External Source",
           name: "Rithmic",
-          type: "CSV source",
+          description:
+            "Rithmic exports use their own format and are handled by a separate adapter.",
         },
       ],
 
       steps: [
-        "Source Detection",
-        "Adapter",
-        "Normalization",
-        "Common Trade Model",
+        {
+          title: "Source Detection",
+          description:
+            "The journal identifies which external format the imported CSV belongs to.",
+        },
+        {
+          title: "Adapter",
+          description:
+            "A source-specific adapter reads the fields and conventions used by that export.",
+        },
+        {
+          title: "Normalization",
+          description:
+            "Values, field names and formats are converted into one consistent structure.",
+        },
+        {
+          title: "Common Trade Model",
+          description:
+            "The normalized result becomes the shared trade representation used by storage, reviews and analytics.",
+        },
       ],
 
-      stepLabel: "Step",
-
-      description:
-        "Source-specific differences stay inside the import layer so the rest of the application can work with a consistent internal trade model.",
+      closing:
+        "Source-specific logic stays inside the import layer, so the rest of the application can work with one consistent internal trade model regardless of the original data source.",
     },
 
     decisionGrouping: {
@@ -110,30 +139,62 @@ const en = {
 
       summary:
         "Same underlying trade data, viewed at two different analytical levels.",
+
+      summaryDescription:
+        "The journal preserves every account execution for financial accuracy, while also grouping related executions into a single Trading Decision when they represent the same underlying action. This allows account performance and behavioral analysis to use the same imported data without counting copied trades incorrectly.",
     },
 
     copiedTradeMatching: {
       label: "Copied Trade Matching",
-      title: "Automatic when reliable, manual when ambiguous",
+
+      title: "How copied executions are grouped into Trading Decisions",
+
       description:
-        "Copied executions can differ slightly in timestamp, entry or exit because of fills. Reliable matches can be grouped automatically, while ambiguous cases can be reviewed manually.",
+        "When the same trade is copied across several accounts, fills can differ slightly in timestamp, entry or exit. The journal first tries to match executions automatically. If the match is uncertain, it can be confirmed manually.",
 
-      likelyMatch: {
-        label: "Likely Match",
-        description:
-          "Trade characteristics indicate that executions belong to the same decision.",
+      accountTrades: {
+        label: "Account Trades",
+        title: "Every execution remains stored",
+        executionLabel: "execution",
       },
 
-      manualReview: {
-        label: "Manual Review",
+      automatic: {
+        label: "Automatic Match",
+        title: "Clear matches are grouped automatically",
         description:
-          "Ambiguous cases are surfaced so they can be confirmed as the same decision or kept separate.",
+          "Executions with sufficiently similar time, entry and exit data can be linked without manual review.",
       },
 
-      originalData: {
-        label: "Original Data Preserved",
+      manual: {
+        label: "Manual Confirmation",
+        title: "Uncertain matches are reviewed manually",
         description:
-          "The grouping decision is stored without changing the original imported account trades.",
+          "If a match is not reliable enough for automatic grouping, it is surfaced so I can confirm whether the executions belong together.",
+      },
+
+      results: {
+        label: "Matching Result",
+        title: "The executions are either grouped or kept separate",
+
+        single: {
+          label: "Grouped Result",
+          title: "One Trading Decision",
+          description:
+            "The executions belong to the same underlying trading decision and are grouped together for review and behavioral analysis.",
+        },
+
+        multiple: {
+          label: "Separate Result",
+          title: "Multiple Trading Decisions",
+          description:
+            "The executions represent separate trading decisions and remain separate for review and behavioral analysis.",
+        },
+      },
+
+      preserved: {
+        label: "Original Account Trades Remain Stored",
+        description:
+          "Grouping never removes or modifies the imported executions. Every account trade remains stored and continues to be used for account-level P&L, fills and statistics.",
       },
     },
   },
@@ -159,18 +220,39 @@ const en = {
     },
 
     flow: {
+      sectionLabel: "Review Flow",
       label: "Review data doesn't stop at the review",
-      description:
-        "Each reviewed decision adds structured evidence about execution, plan compliance, rule adherence, mistakes and my own observations. Over time, that history can reveal recurring patterns and give the Coach stronger context for deciding what deserves attention next.",
 
+      description:
+        "Each reviewed decision adds structured evidence about execution, plan compliance, rule adherence, mistakes and my own observations. As more decisions are reviewed, the journal builds a history of how I actually trade. Repeated mistakes, recurring strengths and patterns in my own notes become easier to identify, giving the Coach stronger evidence for deciding what deserves attention next.",
+
+      tradeReviewLabel: "Reviewed Decision",
       tradeReview: "Trade Review",
+
+      structuredReviewData: "Structured Review Data",
+      structuredReviewDescription:
+        "Each review turns the trade into structured information that can be compared with later decisions.",
+
       execution: "Execution",
       plan: "Plan",
       rules: "Rules",
       mistakes: "Mistakes",
       notes: "Notes",
-      historicalEvidence: "Historical Evidence",
-      coach: "Coach",
+
+      reviewedHistoryLabel: "Reviewed History",
+      reviewedHistory: "Decisions accumulate over time",
+      reviewedHistoryDescription:
+        "Individual reviews become a growing history of reviewed trading decisions.",
+
+      historicalEvidenceLabel: "Historical Evidence",
+      historicalEvidence: "Patterns become visible",
+      historicalEvidenceDescription:
+        "Repeated mistakes, strengths, execution behavior and observations can be identified across the history.",
+
+      coachLabel: "Coach",
+      coach: "What deserves attention now?",
+      coachDescription:
+        "The Coach uses the accumulated evidence to surface relevant patterns, focus areas and previous observations.",
     },
   },
 
@@ -192,6 +274,65 @@ const en = {
       title: "What happened across the decisions I actually made?",
       description:
         "Behavioral analysis uses Trading Decisions rather than blindly counting every copied execution. A mistake made once should not become four mistakes simply because the trade was copied to four accounts. Grouping those executions allows grades, mistakes, plan compliance and review statistics to represent the actual decisions I made.",
+    },
+
+    metrics: {
+      groups: [
+        {
+          label: "Performance",
+          title: "What was the financial outcome?",
+          description:
+            "Measures profitability, consistency and how results develop over time.",
+          items: [
+            "P&L",
+            "Profit Factor",
+            "Expectancy",
+            "Win Rate",
+            "Equity Curve",
+          ],
+        },
+        {
+          label: "Execution",
+          title: "How well were trades executed?",
+          description:
+            "Evaluates trade quality, excursion and how effectively positions were managed.",
+          items: ["Grade", "MFE / MAE / ETD", "Exit", "Break-even"],
+        },
+        {
+          label: "Behavior",
+          title: "What behaviors affected the result?",
+          description:
+            "Connects outcomes to recurring mistakes, plan compliance and rule adherence.",
+          items: ["Mistakes", "Plan", "Rules", "Rule Violation Cost"],
+        },
+        {
+          label: "Context",
+          title: "Where and when did performance occur?",
+          description:
+            "Breaks results down by trading context to reveal where performance changes.",
+          items: ["Strategy", "Time", "Day", "Account"],
+        },
+      ],
+    },
+
+    perspectives: {
+      label: "Two analytical perspectives",
+      title: "The same trading history, analyzed at two different levels",
+      description:
+        "Account Analytics preserves every execution for financial and account-level statistics, while Decision Analytics groups copied executions so behavioral analysis reflects the actual trading decisions that were made.",
+
+      accountLabel: "Account Analytics",
+      decisionLabel: "Decision Analytics",
+
+      accountTags: ["P&L", "Fills", "Trading Costs", "Account Performance"],
+
+      decisionTags: [
+        "Grades",
+        "Mistakes",
+        "Plan",
+        "Rules",
+        "Review Statistics",
+      ],
     },
 
     secondaryLabel: "Broader Analytics Overview",
@@ -223,8 +364,45 @@ const en = {
 
     flow: {
       label: "From decisions to reusable session evidence",
+
       description:
-        "Session Reviews are one of the Coach's most important evidence sources because they condense many reviewed decisions into a clearer statement of what happened, what repeated and what deserves attention next. That makes the session-level reflection more useful than a collection of isolated notes.",
+        "Session Reviews are one of the Coach's most important evidence sources because they condense many reviewed decisions into a clearer picture of what happened, what repeated and what deserves attention next. The flow combines structured review data with my own final interpretation before the result becomes reusable session-level evidence.",
+
+      reviewedDecisions: {
+        label: "Reviewed Decisions",
+        title:
+          "The session starts with the decisions that were actually reviewed",
+        description:
+          "Individual Trading Decisions contribute structured evidence about execution quality, plan compliance, mistakes and market context.",
+      },
+
+      suggestedDraft: {
+        label: "Suggested Session Draft",
+        title: "Reviewed decisions create a structured starting point",
+        description:
+          "The journal can summarize the reviewed decisions into a suggested draft so I do not have to reconstruct the entire session manually.",
+      },
+
+      reflection: {
+        label: "My Reflection",
+        title: "I add the context the structured data cannot know",
+        description:
+          "I add my own session grade, what went well, repeated mistakes and the focus I want to carry into the next session.",
+      },
+
+      sessionEvidence: {
+        label: "Session Review Evidence",
+        title: "The session becomes a reusable piece of history",
+        description:
+          "Structured decision data and my final reflection are combined into a higher-level interpretation of the session that can remain useful later.",
+      },
+
+      coach: {
+        label: "Coach",
+        title: "Relevant session evidence can influence future focus",
+        description:
+          "The Coach can reuse the completed Session Review when deciding which patterns, observations and focus areas deserve attention in future sessions.",
+      },
     },
   },
 
@@ -239,6 +417,50 @@ const en = {
     highlight:
       "The journal remembers what I observed, so I can keep learning from it.",
 
+    evidence: {
+      groups: [
+        {
+          label: "Evidence",
+          title: "What the Coach learns from",
+          description:
+            "Reviewed information provides the factual basis for the behavioral analysis.",
+          items: [
+            "Reviewed Decisions",
+            "Session Reflections",
+            "Mistakes",
+            "Execution Quality",
+            "Review Notes",
+          ],
+        },
+        {
+          label: "Patterns",
+          title: "What becomes visible over time",
+          description:
+            "Repeated evidence can reveal behaviors that are difficult to see from individual trades alone.",
+          items: [
+            "Recurring Behaviors",
+            "Repeated Mistakes",
+            "Strengths",
+            "Recent Themes",
+            "Behavioral Consistency",
+          ],
+        },
+        {
+          label: "Focus",
+          title: "What returns to the current workflow",
+          description:
+            "Relevant patterns are turned into practical focus areas that can influence future sessions.",
+          items: [
+            "Today's Focus",
+            "Improvement Focus",
+            "Execution Cues",
+            "Training Priorities",
+            "Progress Over Time",
+          ],
+        },
+      ],
+    },
+
     technicalNote: {
       label: "Rule- and data-driven",
       description:
@@ -249,6 +471,33 @@ const en = {
       label: "From review history to future focus",
       description:
         "Trade Reviews provide decision-level evidence, while Session Reviews add higher-level reflection and context. Those sources preserve my own observations together with structured information about execution, mistakes, plan compliance and repeated behavior. Over time, the Coach can use that history to surface recurring patterns and prioritize the themes that deserve attention now.",
+
+      steps: [
+        {
+          label: "Review Source",
+          title: "Trade Reviews",
+        },
+        {
+          label: "Review Source",
+          title: "Session Reviews",
+        },
+        {
+          label: "Personal Context",
+          title: "My Observations",
+        },
+        {
+          label: "Accumulated History",
+          title: "Accumulated Evidence",
+        },
+        {
+          label: "Pattern Detection",
+          title: "Recurring Patterns",
+        },
+        {
+          label: "Current Output",
+          title: "Prioritized Focus",
+        },
+      ],
     },
   },
 
@@ -264,28 +513,28 @@ const en = {
       description:
         "The Entry Playbook is a structured visual library of the entry models I want to trade. Each model can document the expected market context, entry criteria, direction, bias, grade, category, checklist, common execution errors and chart examples. The purpose is to make the conditions for a valid entry explicit before execution instead of reconstructing the logic afterwards from the outcome.",
 
-     features: [
-  {
-    title: "Entry criteria",
-    description:
-      "Defines the conditions that should be present before the trade is considered valid.",
-  },
-  {
-    title: "Grade & direction",
-    description:
-      "Classifies setup quality and whether the model applies long, short or in both directions.",
-  },
-  {
-    title: "Structured checklist",
-    description:
-      "Turns the setup into repeatable pre-trade checks that can be reviewed before execution.",
-  },
-  {
-    title: "Common execution errors",
-    description:
-      "Highlights known mistakes that can weaken an otherwise valid setup or execution.",
-  },
-],
+      features: [
+        {
+          title: "Entry criteria",
+          description:
+            "Defines the conditions that should be present before the trade is considered valid.",
+        },
+        {
+          title: "Grade & direction",
+          description:
+            "Classifies setup quality and whether the model applies long, short or in both directions.",
+        },
+        {
+          title: "Structured checklist",
+          description:
+            "Turns the setup into repeatable pre-trade checks that can be reviewed before execution.",
+        },
+        {
+          title: "Common execution errors",
+          description:
+            "Highlights known mistakes that can weaken an otherwise valid setup or execution.",
+        },
+      ],
 
       primaryScreenshotTitle: "Entry Playbook Overview",
 
@@ -326,9 +575,36 @@ const en = {
     },
 
     flow: {
-      label: "Preparation becomes part of the review loop",
+      label: "Preparation becomes part of the learning loop",
       description:
         "Preparation is connected to the same learning process as execution and review. Market Bias documents the expected environment, the Entry Playbook defines what a valid setup should look like, and the resulting Trading Decision can later be reviewed against those expectations. Session Reviews and the Coach can then reuse that history instead of treating preparation as disconnected notes.",
+
+      steps: [
+        {
+          stage: "Preparation",
+          title: "Market Bias",
+        },
+        {
+          stage: "Preparation",
+          title: "Entry Playbook",
+        },
+        {
+          stage: "Execution",
+          title: "Trading Decision",
+        },
+        {
+          stage: "Review",
+          title: "Trade Review",
+        },
+        {
+          stage: "Review",
+          title: "Session Review",
+        },
+        {
+          stage: "Learning",
+          title: "Coach",
+        },
+      ],
     },
   },
 
@@ -344,7 +620,7 @@ const en = {
         label: "Multi-account trade grouping",
         title: "One decision, multiple executions",
         description:
-          "Copy trading means that one trading decision can create several separate account executions. The system must preserve every individual fill for financial accuracy while avoiding the same decision being counted repeatedly in behavioral statistics.",
+          "The journal supports copy trading across several accounts, which means one trading decision can produce multiple separate executions. The challenge is to preserve every account-level fill for financial accuracy while also recognizing that those executions may represent only one underlying decision for behavioral review and statistics.",
         details: [
           "Account-level P&L and fills must remain intact.",
           "Grades, mistakes and reviews should represent the underlying decision once.",
@@ -359,7 +635,7 @@ const en = {
         label: "Copied trade matching",
         title: "Automation with manual exception handling",
         description:
-          "Executions that belong to the same copied trade are not always identical. Small differences in entry time, entry price or exit price can occur because of fills, latency or stop behavior. That makes simple exact matching insufficient.",
+          "Once several account executions may represent the same underlying trade, the journal needs a reliable way to decide which ones belong together. Exact matching is not always sufficient because copied executions can differ slightly in time, entry price or exit price. The matching process therefore combines automatic grouping with manual confirmation when the data is ambiguous.",
         details: [
           "Reliable matches can be grouped automatically.",
           "Ambiguous cases are surfaced for manual confirmation.",
@@ -374,7 +650,7 @@ const en = {
         label: "CSV normalization",
         title: "Different sources, one internal trade model",
         description:
-          "Trading exports do not necessarily use the same headers, formats or conventions. Import logic therefore needs to identify the source and translate source-specific data into a consistent internal representation before the rest of the application can use it safely.",
+          "The journal imports trading data from more than one external source, and those exports do not use identical headers, formats or conventions. Instead of forcing the rest of the application to understand every source-specific difference, the import layer identifies the source and converts the incoming data into one consistent internal trade model before it reaches analytics, reviews or other features.",
         details: [
           "Source detection stays inside the import layer.",
           "Format-specific adapters handle external differences.",
@@ -389,7 +665,7 @@ const en = {
         label: "Persistence evolution",
         title: "From simpler storage to SQLite and repositories",
         description:
-          "The persistence requirements changed as the journal became larger and more interconnected. Features that were manageable with simpler local storage eventually needed a clearer separation between application logic and the way data is physically stored.",
+          "As the journal grew from simpler trade tracking into a larger connected application, more features began depending on persistent data. Storage therefore became an architectural concern rather than just a place to save values. The data layer was gradually separated from feature logic so the application could move toward SQLite without every screen needing to know how the underlying storage works.",
         details: [
           "Repositories isolate features from persistence details.",
           "Storage providers make the data layer easier to evolve.",
@@ -405,7 +681,7 @@ const en = {
         label: "Reusable review history",
         title: "Stored notes are not useful if they disappear into history",
         description:
-          "Trade Reviews and Session Reviews contain more than simple notes. They combine structured fields with mistakes, execution quality, plan compliance, session conclusions and personal observations. The challenge is preserving enough context for that history to remain useful later.",
+          "Trade Reviews and Session Reviews capture information that can still be valuable long after the original trade has finished. The challenge is therefore not only saving those reviews, but preserving enough structure and context for earlier mistakes, observations and conclusions to become useful historical evidence that other parts of the journal can reuse later.",
         details: [
           "Decision-level reviews create structured historical evidence.",
           "Session Reviews add higher-level context and reflection.",
@@ -420,7 +696,7 @@ const en = {
         label: "Refactoring for maintainability",
         title: "Reducing responsibilities as complexity grows",
         description:
-          "As features evolved, some larger modules accumulated UI rendering, state management, calculations, data transformation and feature-specific logic in the same files. That made changes harder to reason about and increased the risk of unintended side effects.",
+          "Several features started as relatively small modules but became more complex as new workflows, calculations and data dependencies were added. Some files eventually contained UI rendering, state management, calculations and transformation logic at the same time. Refactoring has therefore become part of the development process so the application can keep evolving without every change becoming harder to understand or riskier to test.",
         details: [
           "Large components are progressively split into focused components.",
           "Reusable calculations and transformations move into services and utilities.",
@@ -445,39 +721,95 @@ const en = {
     description:
       "The architecture has evolved incrementally around practical separation of responsibilities rather than around a formal architecture pattern. React handles the user interface, Tauri provides the desktop runtime and SQLite supports local persistence. Import logic, repositories, storage providers, analytics utilities, feature modules and Coach logic are separated so each part of the system can evolve without requiring every feature to know how every other layer works.",
 
+    layers: [
+      {
+        number: "01",
+        title: "Trading Data",
+        description:
+          "Raw executions enter the system from external trading platforms and CSV exports. This layer represents the original trading data before source-specific differences have been normalized.",
+      },
+      {
+        number: "02",
+        title: "Import & Normalization",
+        description:
+          "Source detection and format-specific adapters convert different external exports into one consistent internal trade model that the rest of the application can safely use.",
+      },
+      {
+        number: "03",
+        title: "Repositories & Local Storage",
+        description:
+          "Repositories and storage providers separate application features from the persistence layer, while SQLite stores the journal data locally on the desktop.",
+      },
+      {
+        number: "04",
+        title: "Account Trades + Trading Decisions",
+        description:
+          "The same imported data is represented at two analytical levels: individual Account Trades for financial accuracy and grouped Trading Decisions for behavioral analysis.",
+      },
+      {
+        number: "05",
+        title: "Features & Analytics",
+        description:
+          "Dashboard views, trade lists, analytics, playbooks and preparation workflows consume the shared data model without needing to know how imports or persistence are implemented.",
+      },
+      {
+        number: "06",
+        title: "Trade Reviews",
+        description:
+          "Each Trading Decision can be reviewed with execution quality, plan compliance, mistakes, notes and chart evidence, creating structured decision-level history.",
+      },
+      {
+        number: "07",
+        title: "Session Reviews",
+        description:
+          "Reviewed decisions are combined into a broader session-level reflection that captures recurring strengths, repeated mistakes, context and next-session focus.",
+      },
+      {
+        number: "08",
+        title: "Accumulated Evidence",
+        description:
+          "Reviewed decisions, session reflections and observations build a reusable history from which recurring behaviors, strengths and weaknesses can become visible over time.",
+      },
+      {
+        number: "09",
+        title: "Trading Coach",
+        description:
+          "The Coach uses reviewed history and recurring patterns to prioritize which observations, behaviors and improvement areas deserve attention in the current workflow.",
+      },
+    ],
+
     responsibilities: [
       {
         label: "Import",
         description:
-          "Source detection, format-specific adapters and normalization keep external data differences at the system boundary.",
+          "Owns source detection, format-specific adapters and normalization so external data differences stay at the system boundary.",
       },
       {
         label: "Storage",
         description:
-          "Repositories and storage providers separate feature logic from the underlying persistence implementation.",
+          "Owns repositories, storage providers and local persistence so features do not need to know how data is physically stored.",
       },
       {
         label: "Analytics",
         description:
-          "Selectors, utilities and analytics logic transform stored data into decision-level and account-level metrics.",
+          "Transforms stored Account Trades and Trading Decisions into financial, execution and behavioral metrics.",
       },
       {
         label: "Features",
         description:
-          "User-facing modules combine data, workflows and interaction without owning the entire persistence or import process.",
+          "Builds the user-facing workflows around shared data without taking ownership of import or persistence concerns.",
       },
       {
         label: "Coach",
         description:
-          "Behavioral logic consumes reviewed evidence, patterns and session context to produce prioritized future focus.",
+          "Consumes reviewed evidence, recurring patterns and session context to produce prioritized future focus.",
       },
     ],
 
     closing: {
-      title:
-        "The architecture exists to support change, not to make the project look more complex.",
+      title: "The structure makes the application easier to change and debug",
       description:
-        "As the journal grew, clearer boundaries became useful because imports, storage, analytics, reviews and Coach behavior increasingly depended on one another. The current structure is intended to make those dependencies easier to understand, debug and evolve while keeping the application local-first and practical for a single-user desktop workflow.",
+        "As the Trading Journal grew, more parts of the system began to affect one another. A change in import logic could influence analytics, reviews or Coach behavior, while storage changes could have consequences across several features. The application has therefore been separated incrementally into clearer responsibilities for import, storage, analytics, features and Coach logic. This makes it easier to understand where a problem originates, trace how data moves through the system and change one area without having to rework everything around it.",
     },
   },
 
@@ -532,7 +864,7 @@ const en = {
     },
 
     closing:
-      "For me, the most important part of the project is not authorship of individual lines of code. It is that I have taken a real problem, defined the system needed to solve it and continuously developed that system into a working application with interconnected workflows, real data and increasingly complex requirements.",
+      "What matters most to me is not who typed each line of code. I identified the problem, defined what the system needed to do, made the product and workflow decisions, tested the result against real use and kept refining it when the implementation did not match the intended behavior. The application reflects my decisions, priorities and understanding of the problem, with ChatGPT used as the coding implementation layer.",
   },
 
   currentStatus: {
@@ -545,18 +877,25 @@ const en = {
       {
         label: "Status",
         value: "Active development",
+        description:
+          "Continuously refined through real use and new workflow requirements.",
       },
       {
         label: "Platform",
         value: "Desktop",
+        description: "A local desktop application built with React and Tauri.",
       },
       {
         label: "Data model",
         value: "Local-first",
+        description:
+          "Trading data and application state are stored locally on the machine.",
       },
       {
         label: "Source",
         value: "Private repository",
+        description:
+          "Production source code is intentionally kept private while the case study remains public.",
       },
     ],
 
@@ -565,6 +904,13 @@ const en = {
       title: "The application evolves from actual workflow problems",
       description:
         "Features are regularly tested against my own imported trading data and real review workflows. That exposes cases that are difficult to anticipate in an isolated demo, including mismatched copied trades, account differences, incomplete review data, storage requirements and interactions between analytics and behavioral logic. Problems discovered through use often become the next development requirement.",
+
+      points: [
+        "Validated against imported trading data",
+        "Uses real review workflows rather than isolated demo cases",
+        "Reveals edge cases through actual day-to-day use",
+        "Problems discovered in use often become the next development requirement",
+      ],
     },
 
     evolution: {
@@ -573,6 +919,13 @@ const en = {
         "The system continues to change as the requirements become clearer",
       description:
         "The journal has evolved from simpler trade tracking into a more connected system covering import, normalization, multi-account handling, structured review, analytics, preparation, session reflection and behavioral analysis. Current development increasingly focuses not only on adding functionality, but also on improving workflows, reducing unnecessary complexity and refactoring areas that have grown beyond their original responsibilities.",
+
+      points: [
+        "The scope has expanded as connected workflows became clearer",
+        "Development now includes both new functionality and refinement",
+        "Complexity is reduced through iteration and refactoring",
+        "The system continues to evolve as requirements become more precise",
+      ],
     },
 
     closing:
@@ -600,13 +953,14 @@ const en = {
     },
 
     closing:
-      "I can discuss the architecture, workflows, development process, technical challenges and individual implementation decisions in more detail during an interview.",
+      "I can discuss the architecture, data flow, key workflows, technical challenges and the implementation decisions that were tested and refined during development.",
   },
 
   footer: {
     description:
       "A public case study of a private, actively developed desktop trading journal.",
-    project: "MrBrunotte's Trading Journal",
+    owner: "Stefan Brunotte",
+    project: "Owner of MrBrunotte's Trading Journal",
     status: "React · Tauri · SQLite · Active Development",
   },
 };

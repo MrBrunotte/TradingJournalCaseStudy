@@ -15,11 +15,15 @@ export default function Footer({ content }) {
           </div>
 
           <div className="sm:text-right">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-neutral-300">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
+              {content.owner}
+            </p>
+
+            <p className="mt-2 text-xs font-black uppercase tracking-[0.16em] text-white">
               {content.project}
             </p>
 
-            <p className="mt-2 text-sm text-neutral-400">{content.status}</p>
+            <p className="mt-2 text-sm text-neutral-300">{content.status}</p>
           </div>
         </div>
       </PageContainer>

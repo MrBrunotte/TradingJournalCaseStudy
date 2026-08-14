@@ -1,43 +1,34 @@
-const metricGroups = [
-  {
-    label: "Performance",
-    items: ["P&L", "Profit Factor", "Expectancy", "Win Rate", "Equity Curve"],
-  },
-  {
-    label: "Execution",
-    items: ["Grade", "MFE / MAE / ETD", "Exit", "Break-even"],
-  },
-  {
-    label: "Behavior",
-    items: ["Mistakes", "Plan", "Rules", "Rule Violation Cost"],
-  },
-  {
-    label: "Context",
-    items: ["Strategy", "Time", "Day", "Account"],
-  },
-];
-
-export default function AnalyticsMetrics() {
+export default function AnalyticsMetrics({ content }) {
   return (
     <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {metricGroups.map((group) => (
+      {content.groups.map((group) => (
         <article
           key={group.label}
-          className="border border-neutral-800 bg-neutral-950 p-5"
+          className="flex h-full flex-col border border-yellow-500/30 bg-neutral-950 p-5"
         >
           <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
             {group.label}
           </p>
 
-          <div className="mt-4 flex flex-wrap gap-x-2 gap-y-2 text-sm text-neutral-300">
-            {group.items.map((item, index) => (
-              <span key={item}>
-                {item}
-                {index < group.items.length - 1 && (
-                  <span className="ml-2 text-neutral-700">·</span>
-                )}
-              </span>
-            ))}
+          <h3 className="mt-3 text-lg font-black leading-6 text-white">
+            {group.title}
+          </h3>
+
+          <p className="mt-3 text-sm leading-6 text-neutral-300">
+            {group.description}
+          </p>
+
+          <div className="mt-6 border-t border-neutral-800 pt-4">
+            <div className="flex flex-wrap gap-2">
+              {group.items.map((item) => (
+                <span
+                  key={item}
+                  className="border border-neutral-700 bg-black px-3 py-1.5 text-xs font-bold text-neutral-300"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
           </div>
         </article>
       ))}

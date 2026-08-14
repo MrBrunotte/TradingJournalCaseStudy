@@ -7,7 +7,7 @@ export default function ChallengeCard({
   highlight,
 }) {
   return (
-    <article className="border border-neutral-800 bg-neutral-950 p-6 sm:p-7">
+    <article className="border border-yellow-500/30 bg-neutral-950 p-6 sm:p-7">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
@@ -24,7 +24,7 @@ export default function ChallengeCard({
         </span>
       </div>
 
-      <p className="mt-5 text-sm leading-6 text-neutral-400 sm:text-base sm:leading-7">
+      <p className="mt-5 text-sm leading-6 text-neutral-300 sm:text-base sm:leading-7">
         {description}
       </p>
 
@@ -33,7 +33,6 @@ export default function ChallengeCard({
           {details.map((detail) => (
             <div key={detail} className="flex gap-3">
               <span className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 bg-yellow-500" />
-
               <p className="text-sm leading-6 text-neutral-300">{detail}</p>
             </div>
           ))}
@@ -41,7 +40,7 @@ export default function ChallengeCard({
       )}
 
       {highlight && (
-        <div className="mt-6 border-t border-neutral-800 pt-4">
+        <div className="mt-6 border-t border-yellow-500/20 pt-4">
           <p className="text-sm font-bold leading-6 text-white">{highlight}</p>
         </div>
       )}

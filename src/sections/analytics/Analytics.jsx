@@ -21,12 +21,28 @@ export default function Analytics({ content }) {
         />
       </div>
 
-      <AnalyticsMetrics />
+      <AnalyticsMetrics content={content.metrics} />
 
-      <div className="mt-10 grid gap-5 lg:grid-cols-2">
-        <article className="border border-neutral-800 bg-neutral-950 p-6">
+      {/* Analytical perspectives */}
+      <div className="mt-12">
+        <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
+          {content.perspectives.label}
+        </p>
+
+        <h3 className="mt-3 max-w-4xl text-xl font-black leading-7 text-white sm:text-2xl sm:leading-8">
+          {content.perspectives.title}
+        </h3>
+
+        <p className="mt-3 max-w-4xl text-sm leading-6 text-neutral-300 sm:text-base sm:leading-7">
+          {content.perspectives.description}
+        </p>
+      </div>
+
+      <div className="mt-6 grid gap-5 lg:grid-cols-2">
+        {/* Account Analytics */}
+        <article className="flex h-full flex-col border border-yellow-500/30 bg-neutral-950 p-6">
           <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
-            Account Analytics
+            {content.perspectives.accountLabel}
           </p>
 
           <h3 className="mt-3 text-xl font-black text-white">
@@ -36,11 +52,25 @@ export default function Analytics({ content }) {
           <p className="mt-4 text-sm leading-6 text-neutral-300 sm:text-base sm:leading-7">
             {content.accountAnalysis.description}
           </p>
+
+          <div className="mt-6 border-t border-neutral-800 pt-4">
+            <div className="flex flex-wrap gap-2">
+              {content.perspectives.accountTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="border border-neutral-700 bg-black px-3 py-1.5 text-xs font-bold text-neutral-300"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
         </article>
 
-        <article className="border border-yellow-500/30 bg-neutral-950 p-6">
+        {/* Decision Analytics */}
+        <article className="flex h-full flex-col border border-yellow-500/30 bg-neutral-950 p-6">
           <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
-            Decision Analytics
+            {content.perspectives.decisionLabel}
           </p>
 
           <h3 className="mt-3 text-xl font-black text-white">
@@ -50,6 +80,19 @@ export default function Analytics({ content }) {
           <p className="mt-4 text-sm leading-6 text-neutral-300 sm:text-base sm:leading-7">
             {content.decisionAnalysis.description}
           </p>
+
+          <div className="mt-6 border-t border-neutral-800 pt-4">
+            <div className="flex flex-wrap gap-2">
+              {content.perspectives.decisionTags.map((tag) => (
+                <span
+                  key={tag}
+                  className="border border-neutral-700 bg-black px-3 py-1.5 text-xs font-bold text-neutral-300"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
         </article>
       </div>
 

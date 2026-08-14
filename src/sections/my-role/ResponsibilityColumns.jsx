@@ -1,7 +1,7 @@
 export default function ResponsibilityColumns({ content }) {
   return (
     <div className="mt-10 grid gap-5 lg:grid-cols-2">
-      <article className="border border-neutral-800 bg-neutral-950 p-6 sm:p-7">
+      <article className="border border-yellow-500/30 bg-neutral-950 p-6 sm:p-7">
         <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
           {content.ownership.label}
         </p>
@@ -10,7 +10,7 @@ export default function ResponsibilityColumns({ content }) {
           {content.ownership.title}
         </h3>
 
-        <p className="mt-4 text-sm leading-6 text-neutral-400 sm:text-base sm:leading-7">
+        <p className="mt-4 text-sm leading-6 text-neutral-300 sm:text-base sm:leading-7">
           {content.ownership.description}
         </p>
 

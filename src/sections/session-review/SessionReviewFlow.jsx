@@ -1,9 +1,15 @@
-const steps = [
-  "Reviewed Decisions",
-  "Suggested Session Draft",
-  "My Reflection",
-  "Session Review Evidence",
-  "Coach",
+const reviewedDecisionTags = [
+  "Grades",
+  "Plan Compliance",
+  "Mistakes",
+  "Context",
+];
+
+const reflectionTags = [
+  "Session Grade",
+  "What Went Well",
+  "Repeated Mistakes",
+  "Next Focus",
 ];
 
 export default function SessionReviewFlow({ content }) {
@@ -19,78 +25,124 @@ export default function SessionReviewFlow({ content }) {
         </p>
       </div>
 
-      {/* Mobile */}
-      <div className="mt-7 lg:hidden">
-        {steps.map((step, index) => {
-          const isLast = index === steps.length - 1;
+      {/* Wider wrapper so the first card can actually grow */}
+      <div className="mx-auto mt-10 w-full max-w-6xl">
+        {/* Reviewed Decisions */}
+        <div className="mx-auto w-full max-w-5xl border border-yellow-500/30 bg-neutral-950 p-6">
+          <div className="text-center">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
+              {content.reviewedDecisions.label}
+            </p>
 
-          return (
-            <div key={step} className="relative flex gap-4">
-              <div className="flex w-8 shrink-0 flex-col items-center">
-                <div
-                  className={
-                    isLast
-                      ? "flex h-8 w-8 items-center justify-center border border-yellow-500/50 bg-black text-[10px] font-black text-yellow-500"
-                      : "flex h-8 w-8 items-center justify-center border border-neutral-700 bg-black text-[10px] font-black text-neutral-400"
-                  }
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </div>
+            <h3 className="mx-auto mt-3 max-w-4xl text-xl font-black text-white sm:text-2xl">
+              {content.reviewedDecisions.title}
+            </h3>
 
-                {!isLast && (
-                  <div className="min-h-8 w-px flex-1 bg-neutral-700" />
-                )}
-              </div>
+            <p className="mx-auto mt-3 max-w-3xl text-sm leading-6 text-neutral-300 sm:text-base sm:leading-7">
+              {content.reviewedDecisions.description}
+            </p>
+          </div>
 
-              <div className="pb-7 pt-1">
-                <p
-                  className={
-                    isLast
-                      ? "text-sm font-black text-yellow-500"
-                      : "text-sm font-black text-white"
-                  }
-                >
-                  {step}
-                </p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Desktop */}
-      <div className="mt-8 hidden lg:flex lg:items-center lg:gap-3">
-        {steps.map((step, index) => {
-          const isLast = index === steps.length - 1;
-
-          return (
-            <div key={step} className="contents">
-              <div
-                className={
-                  isLast
-                    ? "flex min-h-16 flex-1 items-center justify-center border border-yellow-500/40 bg-neutral-950 px-4 text-center"
-                    : "flex min-h-16 flex-1 items-center justify-center border border-neutral-800 bg-neutral-950 px-4 text-center"
-                }
+          <div className="mt-6 flex flex-wrap justify-center gap-2">
+            {reviewedDecisionTags.map((tag) => (
+              <span
+                key={tag}
+                className="border border-neutral-700 bg-black px-3 py-1.5 text-xs font-bold text-neutral-300"
               >
-                <p
-                  className={
-                    isLast
-                      ? "text-sm font-black text-yellow-500"
-                      : "text-sm font-black text-white"
-                  }
-                >
-                  {step}
-                </p>
-              </div>
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
 
-              {!isLast && (
-                <div className="shrink-0 text-xl font-bold text-yellow-500">
-                  →
-                </div>
-              )}
-            </div>
-          );
-        })}
+        <div className="flex justify-center py-3 text-2xl font-bold text-yellow-500">
+          ↓
+        </div>
+
+        {/* Suggested Session Draft */}
+        <div className="mx-auto max-w-xl border border-yellow-500/30 bg-neutral-950 p-6 text-center">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
+            {content.suggestedDraft.label}
+          </p>
+
+          <h3 className="mt-3 text-lg font-black text-white">
+            {content.suggestedDraft.title}
+          </h3>
+
+          <p className="mt-3 text-sm leading-6 text-neutral-300">
+            {content.suggestedDraft.description}
+          </p>
+        </div>
+
+        <div className="flex justify-center py-3 text-2xl font-bold text-yellow-500">
+          ↓
+        </div>
+
+        {/* My Reflection */}
+        <div className="mx-auto max-w-2xl border border-yellow-500/40 bg-neutral-950 p-6">
+          <div className="text-center">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
+              {content.reflection.label}
+            </p>
+
+            <h3 className="mt-3 text-xl font-black text-white">
+              {content.reflection.title}
+            </h3>
+
+            <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-neutral-300">
+              {content.reflection.description}
+            </p>
+          </div>
+
+          <div className="mt-6 flex flex-wrap justify-center gap-2">
+            {reflectionTags.map((tag) => (
+              <span
+                key={tag}
+                className="border border-neutral-700 bg-black px-3 py-1.5 text-xs font-bold text-neutral-300"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex justify-center py-3 text-2xl font-bold text-yellow-500">
+          ↓
+        </div>
+
+        {/* Session Review Evidence */}
+        <div className="mx-auto max-w-xl border border-yellow-500/30 bg-neutral-950 p-6 text-center">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
+            {content.sessionEvidence.label}
+          </p>
+
+          <h3 className="mt-3 text-lg font-black text-white">
+            {content.sessionEvidence.title}
+          </h3>
+
+          <p className="mt-3 text-sm leading-6 text-neutral-300">
+            {content.sessionEvidence.description}
+          </p>
+        </div>
+
+        <div className="flex justify-center py-3 text-2xl font-bold text-yellow-500">
+          ↓
+        </div>
+
+        {/* Coach */}
+        <div className="mx-auto max-w-xl border border-yellow-500/40 bg-neutral-950 p-6 text-center">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
+            {content.coach.label}
+          </p>
+
+          <h3 className="mt-3 text-lg font-black text-white">
+            {content.coach.title}
+          </h3>
+
+          <p className="mt-3 text-sm leading-6 text-neutral-300">
+            {content.coach.description}
+          </p>
+        </div>
       </div>
     </div>
   );

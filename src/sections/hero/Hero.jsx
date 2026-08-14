@@ -23,22 +23,24 @@ export default function Hero({ content }) {
   return (
     <Section id="overview" showSeparator={false}>
       <div className="space-y-10 lg:space-y-14">
-        <div className="max-w-4xl">
+        <div className="max-w-5xl">
           <SectionHeader label={content.label} title={content.title} />
 
           <HeroMeta items={techItems} />
           <HeroMeta items={statusItems} />
 
           {content.description && (
-            <p className="mt-6 max-w-3xl text-base leading-7 text-neutral-400 sm:text-lg">
+            <p className="mt-6 max-w-4xl text-base leading-7 text-neutral-300 sm:text-lg sm:leading-8">
               {content.description}
             </p>
           )}
 
           {content.supportingLine && (
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-neutral-300 sm:text-base">
-              {content.supportingLine}
-            </p>
+            <div className="mt-6 border-l-2 border-yellow-500 pl-5 sm:pl-6">
+              <p className="max-w-4xl text-base font-bold leading-7 text-white sm:text-lg sm:leading-8">
+                {content.supportingLine}
+              </p>
+            </div>
           )}
         </div>
 

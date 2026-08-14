@@ -26,8 +26,8 @@ export default function MyRole({ content }) {
 
       <DevelopmentWorkflow content={content.workflow} />
 
-      <div className="mt-10 border-t border-neutral-800 pt-8">
-        <p className="max-w-4xl text-base leading-7 text-neutral-300 sm:text-lg sm:leading-8">
+      <div className="mt-10 border-l-2 border-yellow-500 pl-5 sm:pl-6">
+        <p className="max-w-4xl text-base font-bold leading-7 text-white sm:text-lg sm:leading-8">
           {content.closing}
         </p>
       </div>

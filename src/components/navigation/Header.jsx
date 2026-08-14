@@ -37,7 +37,7 @@ export default function Header() {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-400 transition hover:text-yellow-500"
+                  className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-300 transition hover:text-yellow-500"
                 >
                   {item.label}
                 </a>

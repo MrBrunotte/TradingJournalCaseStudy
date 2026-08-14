@@ -61,7 +61,7 @@ export default function TechStack() {
             key={group.label}
             className="border border-neutral-800 bg-neutral-950 p-5"
           >
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-neutral-400">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-neutral-300">
               {group.label}
             </p>
 

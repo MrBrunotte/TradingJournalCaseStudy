@@ -34,7 +34,6 @@ export default function MarketBiasBlock({ content }) {
           </h4>
 
           <p className="mt-4 text-sm leading-6 text-neutral-300 sm:text-base sm:leading-7">
-
             {content.weekly.description}
           </p>
         </article>

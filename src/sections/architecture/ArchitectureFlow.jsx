@@ -52,7 +52,7 @@ export default function ArchitectureFlow() {
                   className={
                     isLast
                       ? "flex h-8 w-8 items-center justify-center border border-yellow-500/50 bg-black text-[10px] font-black text-yellow-500"
-                      : "flex h-8 w-8 items-center justify-center border border-neutral-700 bg-black text-[10px] font-black text-neutral-400"
+                      : "flex h-8 w-8 items-center justify-center border border-neutral-700 bg-black text-[10px] font-black text-neutral-300"
                   }
                 >
                   {String(index + 1).padStart(2, "0")}
@@ -111,7 +111,7 @@ export default function ArchitectureFlow() {
                 {step.title}
               </h3>
 
-              <p className="mt-3 text-sm leading-6 text-neutral-400">
+              <p className="mt-3 text-sm leading-6 text-neutral-300">
                 {step.description}
               </p>
             </article>

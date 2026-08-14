@@ -3,15 +3,6 @@ import SectionHeader from "../../components/layout/SectionHeader";
 import EntryPlaybookBlock from "./EntryPlaybookBlock";
 import MarketBiasBlock from "./MarketBiasBlock";
 
-const flowSteps = [
-  "Market Bias",
-  "Entry Playbook",
-  "Trading Decision",
-  "Trade Review",
-  "Session Review",
-  "Coach",
-];
-
 export default function Preparation({ content }) {
   return (
     <Section id="preparation" className="border-t border-neutral-900">
@@ -40,17 +31,17 @@ export default function Preparation({ content }) {
 
         {/* Mobile */}
         <div className="mt-7 lg:hidden">
-          {flowSteps.map((step, index) => {
-            const isLast = index === flowSteps.length - 1;
+          {content.flow.steps.map((step, index) => {
+            const isLast = index === content.flow.steps.length - 1;
 
             return (
-              <div key={step} className="relative flex gap-4">
+              <div key={step.title} className="relative flex gap-4">
                 <div className="flex w-8 shrink-0 flex-col items-center">
                   <div
                     className={
                       isLast
                         ? "flex h-8 w-8 items-center justify-center border border-yellow-500/50 bg-black text-[10px] font-black text-yellow-500"
-                        : "flex h-8 w-8 items-center justify-center border border-neutral-700 bg-black text-[10px] font-black text-neutral-400"
+                        : "flex h-8 w-8 items-center justify-center border border-neutral-700 bg-black text-[10px] font-black text-neutral-300"
                     }
                   >
                     {String(index + 1).padStart(2, "0")}
@@ -62,14 +53,18 @@ export default function Preparation({ content }) {
                 </div>
 
                 <div className="pb-7 pt-1">
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-yellow-500">
+                    {step.stage}
+                  </p>
+
                   <p
                     className={
                       isLast
-                        ? "text-sm font-black text-yellow-500"
-                        : "text-sm font-black text-white"
+                        ? "mt-1 text-sm font-black text-yellow-500"
+                        : "mt-1 text-sm font-black text-white"
                     }
                   >
-                    {step}
+                    {step.title}
                   </p>
                 </div>
               </div>
@@ -78,32 +73,36 @@ export default function Preparation({ content }) {
         </div>
 
         {/* Desktop */}
-        <div className="mt-8 hidden lg:flex lg:items-center lg:gap-3">
-          {flowSteps.map((step, index) => {
-            const isLast = index === flowSteps.length - 1;
+        <div className="mt-8 hidden lg:flex lg:items-stretch lg:gap-3">
+          {content.flow.steps.map((step, index) => {
+            const isLast = index === content.flow.steps.length - 1;
 
             return (
-              <div key={step} className="contents">
+              <div key={step.title} className="contents">
                 <div
                   className={
                     isLast
-                      ? "flex min-h-16 flex-1 items-center justify-center border border-yellow-500/40 bg-neutral-950 px-4 text-center"
-                      : "flex min-h-16 flex-1 items-center justify-center border border-neutral-800 bg-neutral-950 px-4 text-center"
+                      ? "flex min-h-20 flex-1 flex-col items-center justify-center border border-yellow-500/40 bg-neutral-950 px-4 py-4 text-center"
+                      : "flex min-h-20 flex-1 flex-col items-center justify-center border border-neutral-800 bg-neutral-950 px-4 py-4 text-center"
                   }
                 >
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-yellow-500">
+                    {step.stage}
+                  </p>
+
                   <p
                     className={
                       isLast
-                        ? "text-sm font-black text-yellow-500"
-                        : "text-sm font-black text-white"
+                        ? "mt-2 text-sm font-black text-yellow-500"
+                        : "mt-2 text-sm font-black text-white"
                     }
                   >
-                    {step}
+                    {step.title}
                   </p>
                 </div>
 
                 {!isLast && (
-                  <div className="shrink-0 text-xl font-bold text-yellow-500">
+                  <div className="flex shrink-0 items-center text-xl font-bold text-yellow-500">
                     →
                   </div>
                 )}

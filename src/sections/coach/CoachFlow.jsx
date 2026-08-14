@@ -1,12 +1,3 @@
-const steps = [
-  "Trade Reviews",
-  "Session Reviews",
-  "My Observations",
-  "Historical Evidence",
-  "Recurring Patterns",
-  "Prioritized Focus",
-];
-
 export default function CoachFlow({ content }) {
   return (
     <div className="mt-10 border-t border-neutral-800 pt-8">
@@ -20,78 +11,78 @@ export default function CoachFlow({ content }) {
         </p>
       </div>
 
-      {/* Mobile */}
-      <div className="mt-7 lg:hidden">
-        {steps.map((step, index) => {
-          const isLast = index === steps.length - 1;
+      {/* Desktop */}
+      <div className="mt-8 hidden items-stretch gap-3 lg:flex">
+        {content.steps.map((step, index) => (
+          <div key={step.title} className="contents">
+            <article
+              className={[
+                "flex min-w-0 flex-1 flex-col justify-center border bg-neutral-950 px-4 py-5 text-center",
+                index === content.steps.length - 1
+                  ? "border-yellow-500/60"
+                  : "border-neutral-800",
+              ].join(" ")}
+            >
+              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-yellow-500">
+                {step.label}
+              </p>
 
-          return (
-            <div key={step} className="relative flex gap-4">
-              <div className="flex w-8 shrink-0 flex-col items-center">
-                <div
-                  className={
-                    isLast
-                      ? "flex h-8 w-8 items-center justify-center border border-yellow-500/50 bg-black text-[10px] font-black text-yellow-500"
-                      : "flex h-8 w-8 items-center justify-center border border-neutral-700 bg-black text-[10px] font-black text-neutral-400"
-                  }
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </div>
+              <p
+                className={[
+                  "mt-2 text-sm font-black",
+                  index === content.steps.length - 1
+                    ? "text-yellow-500"
+                    : "text-white",
+                ].join(" ")}
+              >
+                {step.title}
+              </p>
+            </article>
 
-                {!isLast && (
-                  <div className="min-h-8 w-px flex-1 bg-neutral-700" />
-                )}
+            {index < content.steps.length - 1 && (
+              <div className="flex shrink-0 items-center justify-center px-1 text-lg font-bold text-yellow-500">
+                →
               </div>
-
-              <div className="pb-7 pt-1">
-                <p
-                  className={
-                    isLast
-                      ? "text-sm font-black text-yellow-500"
-                      : "text-sm font-black text-white"
-                  }
-                >
-                  {step}
-                </p>
-              </div>
-            </div>
-          );
-        })}
+            )}
+          </div>
+        ))}
       </div>
 
-      {/* Desktop */}
-      <div className="mt-8 hidden lg:flex lg:items-center lg:gap-3">
-        {steps.map((step, index) => {
-          const isLast = index === steps.length - 1;
+      {/* Mobile */}
+      <div className="mt-8 space-y-0 lg:hidden">
+        {content.steps.map((step, index) => (
+          <div key={step.title}>
+            <article
+              className={[
+                "border bg-neutral-950 p-5 text-center",
+                index === content.steps.length - 1
+                  ? "border-yellow-500/60"
+                  : "border-neutral-800",
+              ].join(" ")}
+            >
+              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-yellow-500">
+                {step.label}
+              </p>
 
-          return (
-            <div key={step} className="contents">
-              <div
-                className={
-                  isLast
-                    ? "flex min-h-16 flex-1 items-center justify-center border border-yellow-500/40 bg-neutral-950 px-4 text-center"
-                    : "flex min-h-16 flex-1 items-center justify-center border border-neutral-800 bg-neutral-950 px-4 text-center"
-                }
+              <p
+                className={[
+                  "mt-2 text-sm font-black",
+                  index === content.steps.length - 1
+                    ? "text-yellow-500"
+                    : "text-white",
+                ].join(" ")}
               >
-                <p
-                  className={
-                    isLast
-                      ? "text-sm font-black text-yellow-500"
-                      : "text-sm font-black text-white"
-                  }
-                >
-                  {step}
-                </p>
-              </div>
+                {step.title}
+              </p>
+            </article>
 
-              {!isLast && (
-                <div className="shrink-0 text-xl font-bold text-yellow-500">
-                  →
-                </div>
-              )}
-            </div>
-          );
-        })}
+            {index < content.steps.length - 1 && (
+              <div className="py-2 text-center text-xl font-bold text-yellow-500">
+                ↓
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );

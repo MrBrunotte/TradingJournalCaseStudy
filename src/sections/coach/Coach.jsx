@@ -22,7 +22,7 @@ export default function Coach({ content }) {
         />
       </div>
 
-      <CoachEvidence />
+      <CoachEvidence content={content.evidence} />
 
       <div className="mt-10 border-l-2 border-yellow-500 pl-5 sm:pl-7">
         <p className="max-w-4xl text-lg font-black leading-7 text-white sm:text-2xl sm:leading-8 lg:text-3xl lg:leading-10">

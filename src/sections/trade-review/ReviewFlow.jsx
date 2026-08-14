@@ -3,93 +3,122 @@ const reviewItemKeys = ["execution", "plan", "rules", "mistakes", "notes"];
 export default function ReviewFlow({ content }) {
   return (
     <div className="mt-10 border-t border-neutral-800 pt-8">
-      <div className="max-w-3xl">
+      <div className="max-w-4xl">
         <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
-          {content.label}
+          {content.sectionLabel}
         </p>
 
-        <p className="mt-3 max-w-4xl text-sm leading-6 text-neutral-300 sm:text-base sm:leading-7">
+        <h3 className="mt-3 text-xl font-black leading-7 text-white sm:text-2xl sm:leading-8">
+          {content.label}
+        </h3>
+
+        <p className="mt-3 text-sm leading-6 text-neutral-300 sm:text-base sm:leading-7">
           {content.description}
         </p>
       </div>
 
-      {/* Mobile */}
-      <div className="mt-7 lg:hidden">
-        <div className="border border-neutral-800 bg-neutral-950 px-4 py-4">
-          <p className="text-sm font-black text-white">{content.tradeReview}</p>
+      {/* Flow */}
+      <div className="mx-auto mt-10 max-w-4xl">
+        {/* Reviewed Decision */}
+        <div className="mx-auto max-w-md border border-yellow-500/30 bg-neutral-950 p-6 text-center">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
+            {content.tradeReviewLabel}
+          </p>
+
+          <h4 className="mt-3 text-xl font-black text-white">
+            {content.tradeReview}
+          </h4>
         </div>
 
-        <div className="my-3 text-center text-lg font-bold text-yellow-500">
+        {/* Connector */}
+        <div className="flex justify-center py-3 text-2xl font-bold text-yellow-500">
           ↓
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
-          {reviewItemKeys.map((key) => (
-            <div
-              key={key}
-              className="border border-neutral-700 bg-black px-3 py-3"
-            >
-              <p className="text-xs font-bold text-neutral-300">
-                {content[key]}
-              </p>
-            </div>
-          ))}
+        {/* Structured Review Data */}
+        <div className="border border-yellow-500/30 bg-neutral-950 p-6">
+          <div className="text-center">
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
+              {content.structuredReviewData}
+            </p>
+
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-neutral-300">
+              {content.structuredReviewDescription}
+            </p>
+          </div>
+
+          <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-5 sm:gap-3">
+            {reviewItemKeys.map((key) => (
+              <div
+                key={key}
+                className="border border-neutral-700 bg-black px-3 py-4 text-center"
+              >
+                <p className="text-xs font-bold text-neutral-300">
+                  {content[key]}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="my-3 text-center text-lg font-bold text-yellow-500">
+        {/* Connector */}
+        <div className="flex justify-center py-3 text-2xl font-bold text-yellow-500">
           ↓
         </div>
 
-        <div className="border border-neutral-800 bg-neutral-950 px-4 py-4">
-          <p className="text-sm font-black text-white">
-            {content.historicalEvidence}
+        {/* Reviewed History */}
+        <div className="mx-auto max-w-xl border border-yellow-500/30 bg-neutral-950 p-6 text-center">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
+            {content.reviewedHistoryLabel}
+          </p>
+
+          <h4 className="mt-3 text-lg font-black text-white">
+            {content.reviewedHistory}
+          </h4>
+
+          <p className="mt-3 text-sm leading-6 text-neutral-300">
+            {content.reviewedHistoryDescription}
           </p>
         </div>
 
-        <div className="my-3 text-center text-lg font-bold text-yellow-500">
+        {/* Connector */}
+        <div className="flex justify-center py-3 text-2xl font-bold text-yellow-500">
           ↓
         </div>
 
-        <div className="border border-yellow-500/30 bg-neutral-950 px-4 py-4">
-          <p className="text-sm font-black text-yellow-500">{content.coach}</p>
-        </div>
-      </div>
+        {/* Historical Evidence */}
+        <div className="mx-auto max-w-xl border border-yellow-500/30 bg-neutral-950 p-6 text-center">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
+            {content.historicalEvidenceLabel}
+          </p>
 
-      {/* Desktop */}
-      <div className="mt-7 hidden lg:grid lg:grid-cols-[220px_auto_1fr_auto_220px] lg:items-center lg:gap-5">
-        <div className="border border-neutral-800 bg-neutral-950 px-5 py-5">
-          <p className="text-sm font-black text-white">{content.tradeReview}</p>
-        </div>
+          <h4 className="mt-3 text-lg font-black text-white">
+            {content.historicalEvidence}
+          </h4>
 
-        <div className="text-xl font-bold text-yellow-500">→</div>
-
-        <div className="grid grid-cols-5 gap-2">
-          {reviewItemKeys.map((key) => (
-            <div
-              key={key}
-              className="border border-neutral-700 bg-black px-3 py-4 text-center"
-            >
-              <p className="text-xs font-bold text-neutral-300">
-                {content[key]}
-              </p>
-            </div>
-          ))}
+          <p className="mt-3 text-sm leading-6 text-neutral-300">
+            {content.historicalEvidenceDescription}
+          </p>
         </div>
 
-        <div className="text-xl font-bold text-yellow-500">→</div>
+        {/* Connector */}
+        <div className="flex justify-center py-3 text-2xl font-bold text-yellow-500">
+          ↓
+        </div>
 
-        <div className="grid gap-2">
-          <div className="border border-neutral-800 bg-neutral-950 px-4 py-4">
-            <p className="text-sm font-black text-white">
-              {content.historicalEvidence}
-            </p>
-          </div>
+        {/* Coach */}
+        <div className="mx-auto max-w-xl border border-yellow-500/40 bg-neutral-950 p-6 text-center">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
+            {content.coachLabel}
+          </p>
 
-          <div className="border border-yellow-500/30 bg-neutral-950 px-4 py-4">
-            <p className="text-sm font-black text-yellow-500">
-              {content.coach}
-            </p>
-          </div>
+          <h4 className="mt-3 text-lg font-black text-white">
+            {content.coach}
+          </h4>
+
+          <p className="mt-3 text-sm leading-6 text-neutral-300">
+            {content.coachDescription}
+          </p>
         </div>
       </div>
     </div>

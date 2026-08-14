@@ -14,7 +14,8 @@ export default function DataModel({ content }) {
         description={content.description}
       />
 
-      <ImportPipeline />
+      <ImportPipeline content={content.importPipeline} />
+      <div className="my-12 border-t border-neutral-800" />
       <DecisionGrouping content={content.decisionGrouping} />
       <CopiedTradeMatching content={content.copiedTradeMatching} />
     </Section>

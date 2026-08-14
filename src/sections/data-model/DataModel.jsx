@@ -6,18 +6,17 @@ import ImportPipeline from "./ImportPipeline";
 
 export default function DataModel({ content }) {
   return (
-    <Section id="system" className="border-t border-neutral-900">
+    <Section id="data-model">
       <SectionHeader
+        centered
         label={content.label}
         title={content.title}
         description={content.description}
       />
 
       <ImportPipeline />
-
-      <DecisionGrouping />
-
-      <CopiedTradeMatching />
+      <DecisionGrouping content={content.decisionGrouping} />
+      <CopiedTradeMatching content={content.copiedTradeMatching} />
     </Section>
   );
 }

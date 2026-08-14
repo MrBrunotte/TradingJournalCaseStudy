@@ -7,7 +7,7 @@ export default function LanguageSwitch() {
         href="/"
         className={
           isSwedish
-            ? "text-neutral-500 transition hover:text-white"
+            ? "text-neutral-300 transition hover:text-white"
             : "text-yellow-500"
         }
       >
@@ -21,7 +21,7 @@ export default function LanguageSwitch() {
         className={
           isSwedish
             ? "text-yellow-500"
-            : "text-neutral-500 transition hover:text-white"
+            : "text-neutral-300 transition hover:text-white"
         }
       >
         SV

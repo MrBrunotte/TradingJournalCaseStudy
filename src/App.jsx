@@ -5,6 +5,17 @@ import { getContent } from "./content";
 import Hero from "./sections/hero/Hero";
 import Problem from "./sections/problem/Problem";
 import DataModel from "./sections/data-model/DataModel";
+import TradeReview from "./sections/trade-review/TradeReview";
+import Analytics from "./sections/analytics/Analytics";
+import SessionReview from "./sections/session-review/SessionReview";
+import Coach from "./sections/coach/Coach";
+import Preparation from "./sections/preparation/Preparation";
+import TechnicalChallenges from "./sections/engineering/TechnicalChallenges";
+import Architecture from "./sections/architecture/Architecture";
+import MyRole from "./sections/my-role/MyRole";
+import CurrentStatus from "./sections/status/CurrentStatus";
+import SourceCode from "./sections/source-code/SourceCode";
+import Footer from "./components/layout/Footer";
 
 export default function App() {
   const content = getContent();
@@ -17,23 +28,18 @@ export default function App() {
         <Hero content={content.hero} />
         <Problem content={content.problem} />
         <DataModel content={content.dataModel} />
-
-        <Section id="engineering" className="border-t border-neutral-900">
-          <SectionHeader
-            label={content.sections.engineering.label}
-            title={content.sections.engineering.title}
-            description={content.sections.engineering.description}
-          />
-        </Section>
-
-        <Section id="my-role" className="border-t border-neutral-900">
-          <SectionHeader
-            label={content.sections.myRole.label}
-            title={content.sections.myRole.title}
-            description={content.sections.myRole.description}
-          />
-        </Section>
+        <TradeReview content={content.tradeReview} />
+        <Analytics content={content.analytics} />
+        <SessionReview content={content.sessionReview} />
+        <Coach content={content.coach} />
+        <Preparation content={content.preparation} />
+        <TechnicalChallenges content={content.technicalChallenges} />
+        <Architecture content={content.architecture} />
+        <MyRole content={content.myRole} />
+        <CurrentStatus content={content.currentStatus} />
+        <SourceCode content={content.sourceCode} />
       </main>
+      <Footer content={content.footer} />
     </>
   );
 }

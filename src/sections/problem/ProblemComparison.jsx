@@ -2,7 +2,7 @@ export default function ProblemComparison({ left, right }) {
   return (
     <div className="mt-10 grid gap-4 lg:grid-cols-2">
       <article className="border border-neutral-900 bg-neutral-950 p-6 sm:p-7">
-        <p className="text-xs font-black uppercase tracking-[0.16em] text-neutral-500">
+        <p className="text-xs font-black uppercase tracking-[0.16em] text-yellow-500">
           {left.label}
         </p>
 
@@ -10,10 +10,10 @@ export default function ProblemComparison({ left, right }) {
           {left.title}
         </h3>
 
-        <ul className="mt-5 space-y-3 text-sm leading-6 text-neutral-400 sm:text-base">
+        <ul className="mt-5 space-y-3 text-sm leading-6 text-neutral-300 sm:text-base">
           {left.items.map((item) => (
             <li key={item} className="flex gap-3">
-              <span className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 bg-neutral-700" />
+              <span className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 bg-neutral-600" />
               <span>{item}</span>
             </li>
           ))}

@@ -12,7 +12,9 @@ export default function Header() {
 
   const navigationItems = [
     { label: content.navigation.overview, href: "#overview" },
-    { label: content.navigation.system, href: "#system" },
+    { label: content.navigation.dataModel, href: "#data-model" },
+    { label: content.navigation.review, href: "#trade-review" },
+    { label: content.navigation.coach, href: "#coach" },
     { label: content.navigation.engineering, href: "#engineering" },
     { label: content.navigation.myRole, href: "#my-role" },
   ];

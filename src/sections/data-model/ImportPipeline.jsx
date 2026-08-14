@@ -17,12 +17,12 @@ export default function ImportPipeline() {
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="border border-neutral-700 bg-black p-4">
             <p className="text-sm font-black text-white">DeepCharts</p>
-            <p className="mt-1 text-xs text-neutral-500">CSV source</p>
+            <p className="mt-1 text-xs text-neutral-300">CSV source</p>
           </div>
 
           <div className="border border-neutral-700 bg-black p-4">
             <p className="text-sm font-black text-white">Rithmic</p>
-            <p className="mt-1 text-xs text-neutral-500">CSV source</p>
+            <p className="mt-1 text-xs text-neutral-300">CSV source</p>
           </div>
         </div>
 
@@ -56,12 +56,12 @@ export default function ImportPipeline() {
         <div className="grid gap-3">
           <div className="border border-neutral-700 bg-black p-4">
             <p className="text-sm font-black text-white">DeepCharts</p>
-            <p className="mt-1 text-xs text-neutral-500">CSV source</p>
+            <p className="mt-1 text-xs text-neutral-300">CSV source</p>
           </div>
 
           <div className="border border-neutral-700 bg-black p-4">
             <p className="text-sm font-black text-white">Rithmic</p>
-            <p className="mt-1 text-xs text-neutral-500">CSV source</p>
+            <p className="mt-1 text-xs text-neutral-300">CSV source</p>
           </div>
         </div>
 
@@ -70,7 +70,7 @@ export default function ImportPipeline() {
         <div className="grid gap-3 xl:grid-cols-4">
           {steps.map((step, index) => (
             <div key={step} className="border border-neutral-700 bg-black p-4">
-              <p className="text-[10px] font-black uppercase tracking-[0.14em] text-neutral-500">
+              <p className="text-[10px] font-black uppercase tracking-[0.14em] text-neutral-300">
                 Step {index + 1}
               </p>
 
@@ -80,7 +80,7 @@ export default function ImportPipeline() {
         </div>
       </div>
 
-      <p className="mt-6 max-w-4xl text-sm leading-6 text-neutral-500">
+      <p className="mt-6 max-w-4xl text-sm leading-6 text-neutral-300">
         Source-specific differences stay inside the import layer so the rest of
         the application can work with a consistent internal trade model.
       </p>

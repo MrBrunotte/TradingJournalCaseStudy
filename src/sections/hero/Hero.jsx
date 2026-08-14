@@ -21,7 +21,7 @@ export default function Hero({ content }) {
   ];
 
   return (
-    <Section id="overview" className="border-b border-neutral-900">
+    <Section id="overview" showSeparator={false}>
       <div className="space-y-10 lg:space-y-14">
         <div className="max-w-4xl">
           <SectionHeader label={content.label} title={content.title} />
@@ -36,7 +36,7 @@ export default function Hero({ content }) {
           )}
 
           {content.supportingLine && (
-            <p className="mt-3 max-w-3xl text-sm leading-7 text-neutral-500 sm:text-base">
+            <p className="mt-3 max-w-3xl text-sm leading-7 text-neutral-300 sm:text-base">
               {content.supportingLine}
             </p>
           )}

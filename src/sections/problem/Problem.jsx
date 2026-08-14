@@ -6,6 +6,7 @@ export default function Problem({ content }) {
   return (
     <Section id="problem">
       <SectionHeader
+        centered
         label={content.label}
         title={content.title}
         description={content.description}

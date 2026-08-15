@@ -6,15 +6,15 @@ export default function BrandLogo({ compact = false, className = "" }) {
       <svg
         viewBox="0 0 24 24"
         fill="none"
-        stroke="currentColor"
         strokeWidth="2.6"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className={`${iconSize} shrink-0 text-red-500`}
+        className={`${iconSize} shrink-0`}
         aria-hidden="true"
       >
-        <path d="M3 3v16a2 2 0 0 0 2 2h16" />
-        <path d="m19 9-5 5-4-4-3 3" />
+        <path d="M3 3v16a2 2 0 0 0 2 2h16" className="stroke-yellow-400" />
+
+        <path d="m19 9-5 5-4-4-3 3" className="stroke-red-500" />
       </svg>
 
       <span className="hidden text-sm font-black uppercase tracking-[0.16em] text-white sm:block">

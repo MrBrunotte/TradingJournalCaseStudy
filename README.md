@@ -1,16 +1,52 @@
-# React + Vite
+# MrBrunotte's Trading Journal — Public Case Study
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A public case study of a private, actively developed desktop trading journal.
 
-Currently, two official plugins are available:
+The project demonstrates how I approach product requirements, data modelling, workflow design, testing, validation and technical problem solving in a real application.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live case study
 
-## React Compiler
+https://trading-journal-case-study.netlify.app/
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## What the case study covers
 
-## Expanding the ESLint configuration
+- Multi-source CSV import and normalization
+- Account-level executions and Trading Decision grouping
+- Copied trade matching across multiple accounts
+- Structured Trade Review and Session Review workflows
+- Analytics and behavioral evidence
+- Local-first persistence with SQLite
+- Screenshot and file handling
+- Backup and restore
+- Rule- and data-driven Trading Coach
+- Refactoring and modularization for maintainability
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technology
+
+- React
+- JavaScript
+- Vite
+- Tailwind CSS
+- Tauri
+- SQLite
+- Recharts
+- Git / GitHub
+
+## My role
+
+I own the product idea, requirements, workflows, system behavior, prioritization, testing, validation and development decisions.
+
+ChatGPT is used as the coding implementation layer.
+
+The production source code for the Trading Journal application is private. This repository contains only the public case study website.
+
+## Purpose
+
+The goal of this case study is to show how I work with structured problem solving, system thinking, technical troubleshooting and iterative product development.
+
+It is intended as a portfolio project for roles such as:
+
+- Application Support
+- Technical Support
+- System Support
+- Application Specialist

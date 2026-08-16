@@ -2,6 +2,8 @@
 
 ![MrBrunotte's Trading Journal dashboard](public/screenshots/dashboard-overview.png)
 
+[View the live case study](https://trading-journal-case-study.netlify.app/)
+
 A public case study of a private, actively developed desktop trading journal.
 
 The project demonstrates how I approach product requirements, data modelling, workflow design, testing, validation and technical problem solving in a real application.
